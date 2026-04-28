@@ -1,0 +1,2373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Woven Voices — Group Self-Evaluation &amp; Draft Checklist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:         #F2EFE9;
+  --bg-2:       #EAE6DE;
+  --bg-3:       #DDD8CE;
+  --surface:    #FAFAF6;
+  --ink:        #1A1814;
+  --ink-2:      #3D3A35;
+  --ink-3:      #706D67;
+  --ink-4:      #A09D97;
+  --rule:       #D4D0C8;
+  --accent:     #C4622D;
+  --accent-bg:  #FAEEE6;
+  --accent-rule:#F0C4AC;
+  --green:      #2D7A52;
+  --green-bg:   #E6F4ED;
+  --green-rule: #A8D9BE;
+  --blue:       #2559A7;
+  --blue-bg:    #E8EFFE;
+  --blue-rule:  #AABFE8;
+  --amber:      #92600A;
+  --amber-bg:   #FEF6E6;
+  --amber-rule: #F5D898;
+  --radius:     12px;
+  --radius-sm:  7px;
+  --shadow:     0 1px 4px rgba(26,24,20,.07), 0 6px 18px rgba(26,24,20,.05);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* grain overlay */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0;
+}
+
+/* ── Header ── */
+.site-header {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 3rem 2rem 2.5rem;
+  position: relative; overflow: hidden;
+}
+.site-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(196,98,45,.18) 0%, transparent 65%);
+  pointer-events: none;
+}
+.site-header::after {
+  content: 'SELF\AEVAL';
+  white-space: pre;
+  position: absolute; right: -0.5rem; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Fraunces', serif;
+  font-size: 6.5rem; font-weight: 700; line-height: .82;
+  color: rgba(242,239,233,.04);
+  pointer-events: none; letter-spacing: -.03em;
+}
+.header-inner { max-width: 780px; margin: 0 auto; position: relative; z-index: 1; }
+.header-eyebrow {
+  font-size: .68rem; font-weight: 600; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: .6rem;
+}
+.header-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.7rem, 4.5vw, 2.8rem);
+  font-weight: 700; letter-spacing: -.025em; line-height: 1.1; margin-bottom: .6rem;
+  color: var(--bg);
+}
+.header-sub { font-size: .88rem; color: var(--ink-4); max-width: 540px; line-height: 1.6; }
+
+.main { max-width: 780px; margin: 0 auto; padding: 2rem 1.5rem 5rem; position: relative; z-index: 1; }
+
+/* ── Notice ── */
+.notice {
+  display: flex; gap: .75rem; align-items: flex-start;
+  background: var(--amber-bg); border: 1px solid var(--amber-rule);
+  border-left: 3px solid #E8A020; border-radius: var(--radius-sm);
+  padding: .875rem 1rem; margin-bottom: 1.25rem;
+}
+.notice-icon { flex-shrink: 0; width: 15px; height: 15px; margin-top: 3px; color: var(--amber); }
+.notice p { font-size: .8rem; color: var(--amber); line-height: 1.55; }
+.notice strong { font-weight: 600; }
+
+/* ── Progress ── */
+.autosave-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+.progress-wrap { flex: 1; margin-right: 1rem; }
+.progress-label { font-size: .72rem; color: var(--ink-3); margin-bottom: .3rem; letter-spacing: .04em; text-transform: uppercase; }
+.progress-track { height: 3px; background: var(--bg-3); border-radius: 2px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--accent); border-radius: 2px; width: 0%; transition: width .5s cubic-bezier(.4,0,.2,1); }
+.save-status { font-size: .75rem; color: var(--ink-4); white-space: nowrap; display: flex; align-items: center; gap: .4rem; }
+.save-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); opacity: 0; transition: opacity .3s; }
+.save-dot.on { opacity: 1; }
+
+/* ── Section dividers ── */
+.section-divider {
+  display: flex; align-items: center; gap: .75rem;
+  margin: 2rem 0 1rem;
+}
+.section-divider-label {
+  font-family: 'Fraunces', serif;
+  font-size: .75rem; font-weight: 500; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-4); white-space: nowrap;
+}
+.section-divider-line { flex: 1; height: 1px; background: var(--rule); }
+
+/* ── Cards ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--rule); border-radius: var(--radius);
+  margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden;
+  animation: fadeUp .4s ease both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.card:nth-child(1){animation-delay:.04s}.card:nth-child(2){animation-delay:.08s}
+.card:nth-child(3){animation-delay:.12s}.card:nth-child(4){animation-delay:.16s}
+.card:nth-child(5){animation-delay:.20s}.card:nth-child(6){animation-delay:.24s}
+.card:nth-child(7){animation-delay:.28s}.card:nth-child(8){animation-delay:.32s}
+.card:nth-child(9){animation-delay:.36s}.card:nth-child(10){animation-delay:.40s}
+.card:nth-child(11){animation-delay:.44s}.card:nth-child(12){animation-delay:.48s}
+
+.card-head {
+  padding: .9rem 1.25rem; background: var(--bg-2);
+  border-bottom: 1px solid var(--rule); display: flex; align-items: center; gap: .75rem;
+}
+.card-title { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 500; color: var(--ink); letter-spacing: -.015em; flex: 1; }
+.part-tag {
+  font-size: .65rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  background: var(--bg-3); color: var(--ink-3); border: 1px solid var(--rule);
+  border-radius: 20px; padding: 2px 9px;
+}
+.card-body { padding: 1.25rem; display: flex; flex-direction: column; gap: 1.25rem; }
+
+/* ── Fields ── */
+.field { display: flex; flex-direction: column; }
+.field-label { display: block; font-size: .8rem; font-weight: 600; color: var(--ink-2); margin-bottom: .2rem; letter-spacing: .01em; }
+.field-hint { font-size: .77rem; color: var(--ink-4); margin-bottom: .5rem; line-height: 1.55; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .75rem; }
+
+input[type="text"], input[type="date"], textarea, select {
+  width: 100%; font-family: 'Instrument Sans', sans-serif; font-size: .875rem;
+  color: var(--ink); background: var(--bg); border: 1px solid var(--rule);
+  border-radius: var(--radius-sm); padding: .6rem .8rem; line-height: 1.55;
+  transition: border-color .15s, background .15s; resize: none;
+  -webkit-appearance: none;
+}
+input[type="text"]:focus, input[type="date"]:focus, textarea:focus, select:focus {
+  outline: none; border-color: var(--accent); background: #fff;
+  box-shadow: 0 0 0 3px rgba(196,98,45,.1);
+}
+textarea { min-height: 78px; overflow: hidden; }
+select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23706D67' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .75rem center; padding-right: 2rem; }
+
+/* ── Radio pills ── */
+.radio-row { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .6rem; }
+.radio-pill {
+  display: flex; align-items: center; gap: .4rem; font-size: .8rem; color: var(--ink-2);
+  background: var(--bg-2); border: 1px solid var(--rule); border-radius: 20px;
+  padding: .3rem .875rem; cursor: pointer;
+  transition: border-color .15s, background .15s, color .15s; user-select: none;
+}
+.radio-pill:has(input:checked) { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); font-weight: 500; }
+.radio-pill.green:has(input:checked) { background: var(--green-bg); border-color: var(--green); color: var(--green); }
+.radio-pill input { width: 0; height: 0; opacity: 0; position: absolute; }
+
+/* ── Improvement block ── */
+.improve-block {
+  background: var(--accent-bg); border: 1px solid var(--accent-rule);
+  border-left: 3px solid var(--accent); border-radius: var(--radius-sm);
+  padding: .75rem .875rem; margin-top: .5rem;
+}
+.improve-label {
+  display: flex; align-items: center; gap: .4rem;
+  font-size: .76rem; font-weight: 600; color: var(--accent); margin-bottom: .4rem; letter-spacing: .02em; text-transform: uppercase;
+}
+.improve-block textarea {
+  background: #fff; border-color: var(--accent-rule); font-size: .83rem; min-height: 60px;
+}
+.improve-block textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(196,98,45,.1); }
+
+/* ── Star ratings ── */
+.ratings-table { display: flex; flex-direction: column; }
+.rating-row { display: flex; align-items: center; gap: 1rem; padding: .65rem 0; border-bottom: 1px solid var(--bg-2); }
+.rating-row:last-child { border-bottom: none; }
+.rating-label { font-size: .84rem; color: var(--ink-2); flex: 1; }
+.stars { display: flex; gap: .2rem; }
+.star { background: none; border: none; cursor: pointer; font-size: 1.2rem; color: var(--bg-3); padding: .1rem; transition: color .1s, transform .1s; line-height: 1; }
+.star:hover, .star.active { color: #D97706; }
+.star:hover { transform: scale(1.15); }
+
+/* ── Scale ── */
+.scale-row { display: flex; gap: .35rem; flex-wrap: wrap; margin-bottom: .4rem; }
+.scale-btn {
+  width: 36px; height: 36px; border: 1px solid var(--rule); border-radius: var(--radius-sm);
+  background: var(--bg-2); color: var(--ink-3); font-size: .84rem; font-weight: 500;
+  cursor: pointer; font-family: 'Instrument Sans', sans-serif;
+  transition: border-color .15s, background .15s, color .15s;
+  display: flex; align-items: center; justify-content: center;
+}
+.scale-btn.active { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); }
+.scale-labels { display: flex; justify-content: space-between; font-size: .7rem; color: var(--ink-4); padding: 0 2px; }
+
+/* ═══════════════════════════════════════
+   TASK CHECKLIST
+═══════════════════════════════════════ */
+.checklist { display: flex; flex-direction: column; gap: 0; }
+.checklist-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto auto;
+  align-items: center;
+  gap: .75rem;
+  padding: .75rem .25rem;
+  border-bottom: 1px solid var(--bg-2);
+  transition: background .15s;
+  border-radius: var(--radius-sm);
+}
+.checklist-item:last-child { border-bottom: none; }
+.checklist-item:hover { background: var(--bg); }
+
+.check-box {
+  width: 20px; height: 20px; border: 2px solid var(--rule); border-radius: 5px;
+  cursor: pointer; background: var(--bg-2); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color .15s, background .15s;
+}
+.check-box.checked { border-color: var(--green); background: var(--green); }
+.check-box.checked::after {
+  content: '';
+  width: 5px; height: 9px;
+  border-right: 2px solid #fff; border-bottom: 2px solid #fff;
+  transform: rotate(45deg) translate(-1px,-1px);
+  display: block;
+}
+
+.check-label { font-size: .84rem; color: var(--ink-2); line-height: 1.4; }
+.check-label.done { text-decoration: line-through; color: var(--ink-4); }
+.check-subtext { font-size: .73rem; color: var(--ink-4); margin-top: 1px; }
+
+.check-assignee select { font-size: .78rem; min-width: 120px; padding: .3rem .6rem; padding-right: 1.75rem; }
+.check-due input[type="date"] { font-size: .78rem; min-width: 130px; padding: .3rem .6rem; }
+.check-status select { font-size: .78rem; min-width: 110px; padding: .3rem .6rem; padding-right: 1.75rem; }
+
+/* status colour chips */
+.check-status select option[value="not-started"] { color: var(--ink-3); }
+.check-status select[data-status="in-progress"] { border-color: #E8A020; color: var(--amber); background-color: var(--amber-bg); }
+.check-status select[data-status="done"]        { border-color: var(--green); color: var(--green); background-color: var(--green-bg); }
+.check-status select[data-status="blocked"]     { border-color: #C4622D; color: var(--accent); background-color: var(--accent-bg); }
+
+.checklist-group-label {
+  font-size: .68rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-4); padding: .75rem .25rem .25rem;
+  border-bottom: 1px solid var(--bg-3); margin-bottom: .25rem;
+}
+
+/* ── Members setup ── */
+.members-grid { display: flex; flex-direction: column; gap: .5rem; }
+.member-row { display: flex; gap: .5rem; align-items: center; }
+.member-row input { flex: 1; }
+.member-row .member-num {
+  width: 24px; height: 24px; border-radius: 50%; background: var(--bg-3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .72rem; font-weight: 600; color: var(--ink-3); flex-shrink: 0;
+}
+.member-row .remove-member {
+  width: 28px; height: 28px; border: none; background: none; cursor: pointer;
+  color: var(--ink-4); display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; transition: background .15s, color .15s; font-size: 1rem; line-height: 1;
+}
+.member-row .remove-member:hover { background: var(--bg-3); color: var(--ink-2); }
+.add-member-btn {
+  display: flex; align-items: center; gap: .4rem; font-family: 'Instrument Sans', sans-serif;
+  font-size: .8rem; font-weight: 500; color: var(--ink-3); background: var(--bg-2);
+  border: 1px dashed var(--rule); border-radius: var(--radius-sm);
+  padding: .5rem .875rem; cursor: pointer; width: 100%; justify-content: center;
+  transition: border-color .15s, color .15s, background .15s;
+}
+.add-member-btn:hover { border-color: var(--ink-3); color: var(--ink-2); background: var(--bg-3); }
+
+/* ── Actions ── */
+.actions {
+  display: flex; gap: .75rem; align-items: center; margin-top: 2rem;
+  padding-top: 1.5rem; border-top: 1px solid var(--rule); flex-wrap: wrap;
+}
+.btn {
+  font-family: 'Instrument Sans', sans-serif; font-size: .875rem; font-weight: 500;
+  border-radius: var(--radius-sm); padding: .65rem 1.5rem; cursor: pointer; border: none;
+  transition: background .15s, transform .1s, box-shadow .15s; letter-spacing: .01em;
+}
+.btn:active { transform: scale(.98); }
+.btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+.btn-export { background: var(--accent); color: #fff; display: flex; align-items: center; gap: .5rem; }
+.btn-export:hover { background: #A8501E; box-shadow: 0 2px 8px rgba(196,98,45,.35); }
+.btn-ghost { background: transparent; color: var(--ink-3); border: 1px solid var(--rule); }
+.btn-ghost:hover { border-color: var(--ink-3); color: var(--ink-2); }
+
+/* ═══════════════════════════════════════
+   PRINT
+═══════════════════════════════════════ */
+@media print {
+  @page { size: letter; margin: 16mm 14mm 18mm 14mm; }
+  body::before, .site-header::after, .autosave-bar, .notice, .actions,
+  .btn, .add-member-btn, .remove-member { display: none !important; }
+
+  body { background:#fff; color:#000; font-size:9pt; line-height:1.5; font-family:'Instrument Sans',sans-serif; }
+
+  .site-header {
+    background: #1A1814 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    color:#F2EFE9 !important; padding:12pt 14pt 10pt; margin-bottom:12pt; border-radius:0;
+  }
+  .header-eyebrow { color:#C4622D !important; font-size:6.5pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .header-title { font-size:18pt; color:#F2EFE9 !important; }
+  .header-sub { color:#A09D97 !important; font-size:8pt; }
+
+  .main { padding:0; max-width:100%; }
+  .section-divider { margin: 10pt 0 6pt; }
+  .section-divider-label { font-size:7pt; }
+
+  .card { border:1px solid #CCC; border-radius:5pt; margin-bottom:8pt; box-shadow:none; animation:none; break-inside:auto; page-break-inside:auto; }
+  .card-head { background:#EAE6DE !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:5pt 9pt; border-bottom:1px solid #CCC; break-after:avoid; page-break-after:avoid; }
+  .card-title { font-size:9.5pt; font-weight:700; }
+  .part-tag { font-size:6pt; }
+  .card-body { padding:7pt 9pt; gap:7pt; }
+
+  .field { break-inside:avoid; page-break-inside:avoid; margin-bottom:5pt; }
+  .field-label { font-size:7.5pt; font-weight:700; margin-bottom:1pt; }
+  .field-hint { font-size:7pt; color:#706D67; margin-bottom:2pt; }
+
+  input[type="text"], input[type="date"], textarea, select {
+    border:1px solid #CCC; border-radius:3pt; padding:3pt 5pt; font-size:8pt;
+    background:#F5F3EF !important; -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    width:100%; display:block; height:auto !important; min-height:0 !important;
+    overflow:visible !important; white-space:pre-wrap !important;
+    word-wrap:break-word !important; overflow-wrap:break-word !important;
+  }
+  textarea { break-inside:auto; page-break-inside:auto; }
+
+  .print-text-proxy {
+    border:1px solid #CCC; border-radius:3pt; padding:3pt 5pt; font-size:8pt;
+    font-family:'Instrument Sans',sans-serif; background:#F5F3EF !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    white-space:pre-wrap; word-wrap:break-word; overflow-wrap:break-word;
+    width:100%; display:block; min-height:12pt; line-height:1.5; color:#1A1814;
+  }
+  .improve-print-proxy {
+    font-family:'Instrument Sans',sans-serif; font-size:7.5pt; color:#A8501E;
+    white-space:pre-wrap; word-wrap:break-word; width:100%; display:block; min-height:10pt; line-height:1.5;
+  }
+  textarea, input[type="text"], input[type="date"], select { display:none !important; }
+
+  .radio-row { gap:3pt; margin-bottom:3pt; break-inside:avoid; }
+  .radio-pill { font-size:7pt; padding:2pt 6pt; border:1px solid #CCC; background:#EAE6DE !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .radio-pill:has(input:checked) { background:#FAEEE6 !important; border-color:#C4622D !important; color:#C4622D !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+  .improve-block { background:#FAEEE6 !important; border-color:#F0C4AC !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:4pt 6pt; margin-top:3pt; break-inside:avoid; }
+  .improve-label { font-size:7pt; color:#A8501E !important; }
+
+  .two-col, .three-col { grid-template-columns:1fr; gap:5pt; }
+
+  .checklist-item { grid-template-columns:auto 1fr auto auto auto; gap:.4rem; padding:4pt 2pt; border-bottom:1px solid #E0DDD7; break-inside:avoid; page-break-inside:avoid; }
+  .check-box { width:14pt; height:14pt; border:1.5pt solid #CCC; border-radius:3pt; background:#EAE6DE !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .check-box.checked { border-color:#2D7A52 !important; background:#2D7A52 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .check-label { font-size:8pt; }
+  .check-subtext { font-size:6.5pt; }
+  .check-assignee select, .check-due input[type="date"], .check-status select { font-size:7pt; min-width:0; width:auto; padding:2pt 4pt; }
+  .checklist-group-label { font-size:6.5pt; padding:5pt 2pt 2pt; }
+
+  .star { font-size:10pt; }
+  .star.active { color:#D97706 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .scale-btn { width:22pt; height:22pt; font-size:7.5pt; }
+  .scale-btn.active { background:#FAEEE6 !important; border-color:#C4622D !important; color:#C4622D !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .rating-row { break-inside:avoid; }
+  .ratings-table { break-inside:auto; }
+}
+
+/* ══ Diagram styles ══ */
+.diagram-wrapper {
+  background: var(--surface); border: 1px solid var(--rule);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 1.25rem 1.25rem 1rem; margin-bottom: 1.5rem;
+  overflow-x: auto; animation: fadeUp .4s ease both;
+}
+.diagram-title {
+  font-family: 'Fraunces', serif; font-size: .85rem; font-weight: 500;
+  color: var(--ink-3); letter-spacing: .06em; text-transform: uppercase;
+  margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem;
+}
+.diagram-title::after { content:''; flex:1; height:1px; background:var(--rule); }
+.diag { display: flex; flex-direction: column; gap: 0; font-family: 'Instrument Sans', sans-serif; }
+.diag .d-card { border-radius: 8px; border: 0.5px solid; padding: 10px 14px; }
+.diag .d-card-title { font-size: 12.5px; font-weight: 600; margin-bottom: 4px; }
+.diag .d-card-sub   { font-size: 11px; line-height: 1.6; }
+.diag .d-purple { background: #EEEDFE; border-color: #7F77DD; }
+.diag .d-purple .d-card-title { color: #26215C; }
+.diag .d-purple .d-card-sub   { color: #534AB7; }
+.diag .d-dpurple { background: #CECBF6; border-color: #7F77DD; }
+.diag .d-dpurple .d-card-title { color: #26215C; }
+.diag .d-dpurple .d-card-sub   { color: #3C3489; }
+.diag .d-teal { background: #E1F5EE; border-color: #5DCAA5; }
+.diag .d-teal .d-card-title { color: #085041; }
+.diag .d-teal .d-card-sub   { color: #0F6E56; }
+.diag .d-gray { background: #F1EFE8; border-color: #888780; }
+.diag .d-gray .d-card-title { color: #444441; }
+.diag .d-gray .d-card-sub   { color: #5F5E5A; }
+.diag .d-coral { background: #FAECE7; border-color: #F0997B; }
+.diag .d-coral .d-card-title { color: #4A1B0C; }
+.diag .d-coral .d-card-sub   { color: #712B13; }
+.diag .d-arrow { display:flex; justify-content:center; height:18px; }
+.diag .d-arrow::after { content:''; display:block; width:1px; height:14px; background:#B4B2A9; margin-top:2px; }
+.diag .d-pill { background:#E1F5EE; border:0.5px solid #5DCAA5; border-radius:10px; padding:3px 12px; font-size:10px; font-weight:600; color:#085041; white-space:nowrap; }
+.diag .d-pills { display:flex; justify-content:space-around; padding: 0 2%; }
+.diag .d-cols3 { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.diag .d-col { display:flex; flex-direction:column; gap:0; }
+.diag .d-col-arrow { display:flex; justify-content:center; height:16px; }
+.diag .d-col-arrow::after { content:''; width:1px; height:13px; background:#1D9E75; margin-top:2px; }
+.diag .d-col-arrow-purple::after { background:#534AB7; }
+.diag .d-col-arrow-gray::after   { background:#888780; }
+.diag .d-cols2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.diag .d-legend { display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; padding-top:10px; border-top:0.5px solid #D3D1C7; font-size:10px; color:#5F5E5A; align-items:center; }
+.diag .d-leg-sw { width:10px; height:10px; border-radius:2px; border:0.5px solid; display:inline-block; vertical-align:middle; margin-right:3px; }
+
+/* ══ Checklist presentation column ══ */
+.checklist-item {
+  grid-template-columns: auto 1fr auto auto auto auto !important;
+}
+.check-pres { display:flex; align-items:center; gap:.35rem; }
+.pres-box {
+  width:18px; height:18px; border:2px solid #AABFE8; border-radius:4px; flex-shrink:0;
+  cursor:pointer; background:var(--bg-2);
+  display:flex; align-items:center; justify-content:center;
+  transition:border-color .15s, background .15s;
+}
+.pres-box.checked { border-color:var(--blue); background:var(--blue); }
+.pres-box.checked::after {
+  content:''; width:4px; height:8px;
+  border-right:2px solid #fff; border-bottom:2px solid #fff;
+  transform:rotate(45deg) translate(-1px,-1px); display:block;
+}
+.pres-label { font-size:.68rem; color:var(--blue); font-weight:500; white-space:nowrap; }
+
+@media (max-width: 640px) {
+  .checklist-item { grid-template-columns: auto 1fr !important; }
+  .check-assignee, .check-due, .check-status, .check-pres { display: none; }
+}
+
+/* print updates */
+@media print {
+  .pres-box { width:12pt; height:12pt; border:1.5pt solid #AABFE8; border-radius:3pt; background:#E8EFFE !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .pres-box.checked { border-color:#2559A7 !important; background:#2559A7 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .pres-label { font-size:6.5pt; color:#2559A7 !important; }
+  .diagram-wrapper { box-shadow:none; border:1px solid #CCC; }
+  .diag .d-cols3 { grid-template-columns:repeat(3,1fr); }
+  .diag * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
+
+/* ── Sync status bar ── */
+.sync-bar {
+  display: flex; align-items: center; gap: .6rem;
+  background: var(--blue-bg); border: 1px solid var(--blue-rule);
+  border-radius: var(--radius-sm); padding: .6rem 1rem;
+  margin-bottom: 1.25rem; font-size: .8rem; color: var(--blue);
+}
+.sync-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  background: var(--ink-4); transition: background .3s;
+}
+.sync-dot.live    { background: var(--green); box-shadow: 0 0 0 3px rgba(45,122,82,.2); }
+.sync-dot.saving  { background: #E8A020; }
+.sync-dot.error   { background: var(--accent); }
+.sync-msg { flex: 1; }
+.sync-badge {
+  font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  background: var(--blue); color: #fff; border-radius: 20px; padding: 2px 8px;
+}
+.setup-warning {
+  display: flex; gap: .75rem; align-items: flex-start;
+  background: #FFF8E6; border: 1px solid #FDE68A; border-left: 3px solid #F59E0B;
+  border-radius: var(--radius-sm); padding: .875rem 1rem; margin-bottom: 1.25rem;
+}
+.setup-warning p { font-size: .8rem; color: #92600A; line-height: 1.55; }
+.setup-warning strong { font-weight: 600; }
+.setup-warning code {
+  font-family: monospace; font-size: .78rem;
+  background: rgba(0,0,0,.06); padding: 1px 5px; border-radius: 3px;
+}
+@media print {
+  .sync-bar, .setup-warning { display: none !important; }
+}
+
+/* ══ Ownership & filter system ══ */
+
+/* 5 member colour palette — border + tinted card-head */
+:root {
+  --m1: #C4622D; --m1-bg: #FAEEE6; --m1-rule: #F0C4AC;
+  --m2: #2559A7; --m2-bg: #E8EFFE; --m2-rule: #AABFE8;
+  --m3: #2D7A52; --m3-bg: #E6F4ED; --m3-rule: #A8D9BE;
+  --m4: #7C3AED; --m4-bg: #F5F3FF; --m4-rule: #DDD6FE;
+  --m5: #92600A; --m5-bg: #FEF6E6; --m5-rule: #F5D898;
+}
+
+/* Active member picker bar */
+.who-am-i-bar {
+  display: flex; align-items: center; gap: .75rem; flex-wrap: wrap;
+  background: var(--surface); border: 1px solid var(--rule);
+  border-radius: var(--radius-sm); padding: .65rem 1rem;
+  margin-bottom: 1rem; font-size: .8rem; color: var(--ink-2);
+}
+.who-am-i-label { font-weight: 600; white-space: nowrap; color: var(--ink-3); letter-spacing: .02em; }
+.who-am-i-pills { display: flex; flex-wrap: wrap; gap: .35rem; flex: 1; }
+.who-pill {
+  padding: .25rem .75rem; border-radius: 20px; border: 1.5px solid var(--rule);
+  background: var(--bg-2); font-size: .78rem; font-weight: 500; cursor: pointer;
+  transition: all .15s; color: var(--ink-3); white-space: nowrap; user-select: none;
+}
+.who-pill:hover { border-color: var(--ink-3); color: var(--ink-2); }
+.who-pill.active { font-weight: 600; }
+.who-pill[data-mi="0"].active  { background:var(--m1-bg); border-color:var(--m1); color:var(--m1); }
+.who-pill[data-mi="1"].active  { background:var(--m2-bg); border-color:var(--m2); color:var(--m2); }
+.who-pill[data-mi="2"].active  { background:var(--m3-bg); border-color:var(--m3); color:var(--m3); }
+.who-pill[data-mi="3"].active  { background:var(--m4-bg); border-color:var(--m4); color:var(--m4); }
+.who-pill[data-mi="4"].active  { background:var(--m5-bg); border-color:var(--m5); color:var(--m5); }
+
+.filter-toggle {
+  display: flex; align-items: center; gap: .4rem;
+  font-size: .76rem; font-weight: 500; cursor: pointer;
+  color: var(--ink-3); background: none; border: 1.5px solid var(--rule);
+  border-radius: 20px; padding: .25rem .75rem; transition: all .15s; white-space: nowrap;
+  font-family: 'Instrument Sans', sans-serif;
+}
+.filter-toggle:hover { border-color: var(--ink-2); color: var(--ink-2); }
+.filter-toggle.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.filter-toggle .ft-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+/* Card ownership states */
+.card[data-owner] { transition: opacity .25s, border-color .2s; }
+
+/* Owner colour applied to card border + card-head bg */
+.card[data-owner="0"] { border-color: var(--m1-rule); }
+.card[data-owner="0"] .card-head { background: var(--m1-bg); border-bottom-color: var(--m1-rule); }
+.card[data-owner="0"] .owner-tag { background: var(--m1-bg); border-color: var(--m1); color: var(--m1); }
+
+.card[data-owner="1"] { border-color: var(--m2-rule); }
+.card[data-owner="1"] .card-head { background: var(--m2-bg); border-bottom-color: var(--m2-rule); }
+.card[data-owner="1"] .owner-tag { background: var(--m2-bg); border-color: var(--m2); color: var(--m2); }
+
+.card[data-owner="2"] { border-color: var(--m3-rule); }
+.card[data-owner="2"] .card-head { background: var(--m3-bg); border-bottom-color: var(--m3-rule); }
+.card[data-owner="2"] .owner-tag { background: var(--m3-bg); border-color: var(--m3); color: var(--m3); }
+
+.card[data-owner="3"] { border-color: var(--m4-rule); }
+.card[data-owner="3"] .card-head { background: var(--m4-bg); border-bottom-color: var(--m4-rule); }
+.card[data-owner="3"] .owner-tag { background: var(--m4-bg); border-color: var(--m4); color: var(--m4); }
+
+.card[data-owner="4"] { border-color: var(--m5-rule); }
+.card[data-owner="4"] .card-head { background: var(--m5-bg); border-bottom-color: var(--m5-rule); }
+.card[data-owner="4"] .owner-tag { background: var(--m5-bg); border-color: var(--m5); color: var(--m5); }
+
+/* Owner tag pill inside card-head */
+.owner-tag {
+  font-size: .65rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  background: var(--bg-3); color: var(--ink-3); border: 1px solid var(--rule);
+  border-radius: 20px; padding: 2px 9px; white-space: nowrap; cursor: pointer;
+  transition: all .15s;
+}
+.owner-select-wrap { position: relative; }
+.owner-select-wrap select {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; font-size: .7rem;
+}
+
+/* Filter mode: dim cards not owned by active member */
+body.filter-on .card[data-owner]:not([data-owner="__ACTIVE__"]) {
+  opacity: .25; pointer-events: none;
+}
+/* Cards with no owner are always visible in filter mode */
+body.filter-on .card:not([data-owner]) { opacity: 1; pointer-events: auto; }
+
+/* Unowned cards get a neutral dim in filter mode */
+body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
+
+/* print: don't show ownership chrome */
+@media print {
+  .who-am-i-bar { display: none !important; }
+  .owner-tag { display: none !important; }
+  .card[data-owner] { opacity: 1 !important; border-color: #CCC !important; }
+  .card[data-owner] .card-head { background: #EAE6DE !important; }
+}
+</style>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp }        from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, setDoc, onSnapshot, serverTimestamp }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // ✏️  INSTRUCTOR SETUP — edit these two things only:
+  //
+  //   1. Replace the firebaseConfig object below with your own project's
+  //      config from the Firebase console (Project settings → Your apps → SDK setup).
+  //
+  //   2. Change GROUP_ID to a unique string for each group file:
+  //      e.g. "group-1", "group-2", … "group-6"
+  // ─────────────────────────────────────────────────────────────────────────
+  const GROUP_ID = "group-1"; // ← change this per file
+
+  const firebaseConfig = {
+    apiKey:            "AIzaSyBtGtZ9vkDCraCUdwKgDovmxqqysVrX05w",
+    authDomain:        "digitalselfquilt.firebaseapp.com",
+    databaseURL:       "https://digitalselfquilt-default-rtdb.firebaseio.com",
+    projectId:         "digitalselfquilt",
+    storageBucket:     "digitalselfquilt.firebasestorage.app",
+    messagingSenderId: "902474023892",
+    appId:             "1:902474023892:web:1258a3d078c7c2ee734c41",
+    measurementId:     "G-VQJDG5X9T2"
+  };
+  // ─────────────────────────────────────────────────────────────────────────
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getFirestore(app);
+  const docRef = doc(db, "groups", GROUP_ID);
+
+  // Expose to global scope so the rest of the (non-module) script can call them
+  window._fbSave = async function(data) {
+    try {
+      await setDoc(docRef, { ...data, _lastSaved: serverTimestamp() }, { merge: true });
+    } catch(e) {
+      console.warn("Firebase save failed:", e);
+    }
+  };
+
+  window._fbListen = function(callback) {
+    return onSnapshot(docRef, function(snap) {
+      if (snap.exists()) callback(snap.data());
+    }, function(err) {
+      console.warn("Firebase listen failed:", err);
+    });
+  };
+
+  window._fbReady = true;
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <p class="header-eyebrow">Digital Media Arts &nbsp;·&nbsp; Fleshed-Out Project</p>
+    <h1 class="header-title">Group Self-Evaluation</h1>
+    <p class="header-sub">Self-evaluate <em>Woven Voices</em> as a team, identify improvements, then use the draft paper checklist to assign every task — including what goes in the presentation — to a member with a deadline.</p>
+  </div>
+</header>
+
+<main class="main">
+
+  <div class="notice">
+    <svg class="notice-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/>
+      <path d="M8 5v3.5M8 10.5v.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+    <p><strong>Saved to this browser only.</strong> Use <strong>Export PDF</strong> before closing to keep a permanent copy. Clearing your browser data will erase your responses.</p>
+  </div>
+
+  <div class="autosave-bar">
+    <div class="progress-wrap">
+      <div class="progress-label" id="progress-label">0% complete</div>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <div class="save-status">
+      <div class="save-dot" id="save-dot"></div>
+      <span id="save-label"></span>
+    </div>
+  </div>
+
+  <!-- Setup warning (hidden — Firebase is configured) -->
+  <div class="setup-warning" id="setup-warning" style="display:none"></div>
+
+  <!-- Live sync status -->
+  <div class="sync-bar" id="sync-bar" style="display:none">
+    <div class="sync-dot" id="sync-dot"></div>
+    <span class="sync-msg" id="sync-msg">Connecting…</span>
+    <span class="sync-badge" id="sync-badge">Live</span>
+  </div>
+
+  <!-- ── Who are you? ── -->
+  <div class="who-am-i-bar" id="who-am-i-bar">
+    <span class="who-am-i-label">I am:</span>
+    <div class="who-am-i-pills" id="who-pills">
+      <span class="who-pill" style="color:var(--ink-4);font-style:italic">Add members above first</span>
+    </div>
+    <button class="filter-toggle" id="filter-toggle" onclick="toggleFilter()" title="Show only sections assigned to you">
+      <span class="ft-dot"></span> My sections only
+    </button>
+  </div>
+
+  <!-- ① Group info -->
+  <div class="card">
+    <div class="card-head"><h2 class="card-title">Group info</h2></div>
+    <div class="card-body">
+      <div class="two-col">
+        <div class="field">
+          <label class="field-label" for="group-name">Group name or number</label>
+          <input type="text" id="group-name" placeholder="e.g. Group 4" autocomplete="off">
+        </div>
+        <div class="field">
+          <label class="field-label" for="paper-title">Paper title</label>
+          <input type="text" id="paper-title" placeholder="Working title of your project" autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Group members</label>
+        <p class="field-hint">Add each member's name. These will appear as options in the task checklist below.</p>
+        <div class="members-grid" id="members-grid"></div>
+        <button class="add-member-btn" id="add-member-btn" type="button" onclick="addMember()">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6.5 1v11M1 6.5h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Add member
+        </button>
+      </div>
+      <div class="field">
+        <label class="field-label" for="draft-due">Draft paper due date</label>
+        <p class="field-hint">The overall deadline for the completed draft — used as a reference throughout the task checklist.</p>
+        <input type="date" id="draft-due" style="max-width:220px">
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── Paper Structure Diagram ── -->
+  <div class="diagram-wrapper">
+    <div class="diagram-title">Paper structure at a glance</div>
+    <div class="diag">
+
+      <!-- Top row: thesis feeds into three theme pills -->
+      <div class="d-card d-gray" style="margin-bottom:0;">
+        <div class="d-card-title">Introduction + thesis</div>
+        <div class="d-card-sub">State what the paper argues and why it matters. Introduce the three themes and the speculative artwork. The thesis should be specific enough to give the paper direction.</div>
+      </div>
+
+      <div style="height:18px;display:flex;position:relative;">
+        <div style="position:absolute;left:17%;width:1px;height:18px;background:#1D9E75;top:0;"></div>
+        <div style="position:absolute;left:50%;width:1px;height:18px;background:#1D9E75;top:0;"></div>
+        <div style="position:absolute;left:83%;width:1px;height:18px;background:#1D9E75;top:0;"></div>
+      </div>
+      <div class="d-pills">
+        <div class="d-pill">Theme 1</div>
+        <div class="d-pill">Theme 2</div>
+        <div class="d-pill">Theme 3</div>
+      </div>
+      <div style="height:12px;display:flex;position:relative;">
+        <div style="position:absolute;left:17%;width:1px;height:12px;background:#1D9E75;top:0;"></div>
+        <div style="position:absolute;left:50%;width:1px;height:12px;background:#1D9E75;top:0;"></div>
+        <div style="position:absolute;left:83%;width:1px;height:12px;background:#1D9E75;top:0;"></div>
+      </div>
+
+      <div class="d-cols3">
+
+        <!-- Theme 1 -->
+        <div class="d-col">
+          <div class="d-card d-purple"><div class="d-card-title">Theme 1</div><div class="d-card-sub">One focused theme described. State what theme this section will describe and how it connects to the speculative artwork.</div></div>
+          <div class="d-col-arrow d-col-arrow-purple"></div>
+          <div class="d-card d-dpurple"><div class="d-card-title">Speculative artwork connection</div><div class="d-card-sub">How does this theme directly inform or shape the speculative artwork? State the link explicitly before diving into examples.</div></div>
+          <div class="d-col-arrow"></div>
+          <div class="d-card d-teal"><div class="d-card-title">Artist + artwork</div><div class="d-card-sub">The goal is to show how this artwork connects to the theme and to the speculative artwork. Discuss the concept and content, the digital media and materials, and the formal elements — but only in service of that connection. What does this work share with yours in terms of idea, form, or approach?</div></div>
+          <div class="d-col-arrow d-col-arrow-gray"></div>
+          <div class="d-card d-gray"><div class="d-card-title">Article — outside the artworld</div><div class="d-card-sub">The goal is the same as the artwork: connect to the theme and to the speculative artwork. The source must come from outside the artworld — science, technology, sociology, psychology, history, etc. Explain what it argues and why that matters for your speculative piece specifically. At least 2 of the 3 articles across the whole paper must be peer-reviewed.</div></div>
+          <div class="d-col-arrow d-col-arrow-gray"></div>
+          <div class="d-card d-coral"><div class="d-card-title">Personal connections</div><div class="d-card-sub">How does this theme connect to your group's lived experiences, passions, opinions, and interests? Why does this matter to you — not just as students, but as people? What do you bring to this subject that no one else can?</div></div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="d-col">
+          <div class="d-card d-purple"><div class="d-card-title">Theme 2</div><div class="d-card-sub">One focused theme described. State what theme this section will describe and how it connects to the speculative artwork.</div></div>
+          <div class="d-col-arrow d-col-arrow-purple"></div>
+          <div class="d-card d-dpurple"><div class="d-card-title">Speculative artwork connection</div><div class="d-card-sub">How does this theme directly inform or shape the speculative artwork? State the link explicitly before diving into examples.</div></div>
+          <div class="d-col-arrow"></div>
+          <div class="d-card d-teal"><div class="d-card-title">Artist + artwork</div><div class="d-card-sub">The goal is to show how this artwork connects to the theme and to the speculative artwork. Discuss the concept and content, the digital media and materials, and the formal elements — but only in service of that connection. What does this work share with yours in terms of idea, form, or approach?</div></div>
+          <div class="d-col-arrow d-col-arrow-gray"></div>
+          <div class="d-card d-gray"><div class="d-card-title">Article — outside the artworld</div><div class="d-card-sub">The goal is the same as the artwork: connect to the theme and to the speculative artwork. The source must come from outside the artworld — science, technology, sociology, psychology, history, etc. Explain what it argues and why that matters for your speculative piece specifically. At least 2 of the 3 articles across the whole paper must be peer-reviewed.</div></div>
+          <div class="d-col-arrow d-col-arrow-gray"></div>
+          <div class="d-card d-coral"><div class="d-card-title">Personal connections</div><div class="d-card-sub">How does this theme connect to your group's lived experiences, passions, opinions, and interests? Why does this matter to you — not just as students, but as people? What do you bring to this subject that no one else can?</div></div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="d-col">
+          <div class="d-card d-purple"><div class="d-card-title">Theme 3</div><div class="d-card-sub">One focused theme described. State what theme this section will describe and how it connects to the speculative artwork.</div></div>
+          <div class="d-col-arrow d-col-arrow-purple"></div>
+          <div class="d-card d-dpurple"><div class="d-card-title">Speculative artwork connection</div><div class="d-card-sub">How does this theme directly inform or shape the speculative artwork? State the link explicitly before diving into examples.</div></div>
+          <div class="d-col-arrow"></div>
+          <div class="d-card d-teal"><div class="d-card-title">Artist + artwork</div><div class="d-card-sub">The goal is to show how this artwork connects to the theme and to the speculative artwork. Discuss the concept and content, the digital media and materials, and the formal elements — but only in service of that connection. What does this work share with yours in terms of idea, form, or approach?</div></div>
+          <div class="d-col-arrow d-col-arrow-gray"></div>
+          <div class="d-card d-gray"><div class="d-card-title">Article — outside the artworld</div><div class="d-card-sub">The goal is the same as the artwork: connect to the theme and to the speculative artwork. The source must come from outside the artworld — science, technology, sociology, psychology, history, etc. Explain what it argues and why that matters for your speculative piece specifically. At least 2 of the 3 articles across the whole paper must be peer-reviewed.</div></div>
+          <div class="d-col-arrow d-col-arrow-gray"></div>
+          <div class="d-card d-coral"><div class="d-card-title">Personal connections</div><div class="d-card-sub">How does this theme connect to your group's lived experiences, passions, opinions, and interests? Why does this matter to you — not just as students, but as people? What do you bring to this subject that no one else can?</div></div>
+        </div>
+
+      </div>
+
+      <!-- Merge lines -->
+      <div style="height:22px;display:flex;position:relative;margin-top:4px;">
+        <div style="position:absolute;left:17%;width:1px;height:22px;background:#534AB7;top:0;"></div>
+        <div style="position:absolute;left:50%;width:1px;height:22px;background:#534AB7;top:0;"></div>
+        <div style="position:absolute;left:83%;width:1px;height:22px;background:#534AB7;top:0;"></div>
+      </div>
+      <div style="display:flex;justify-content:center;"><div style="width:66%;height:1px;background:#534AB7;"></div></div>
+      <div style="display:flex;justify-content:center;height:16px;"><div style="width:1px;height:16px;background:#534AB7;"></div></div>
+
+      <div class="d-card d-dpurple">
+        <div class="d-card-title">Synthesis — the artwork as unified argument</div>
+        <div class="d-card-sub">Show how all three themes converge in the speculative artwork. It is not three separate ideas — the artwork holds them all simultaneously. The viewer's experience enacts what the paper argues.</div>
+      </div>
+      <div class="d-arrow"></div>
+      <div class="d-card d-gray">
+        <div class="d-card-title">Conclusion</div>
+        <div class="d-card-sub">~5 sentences. Synthesize the three themes. Restate the thesis in light of the argument. Call to action — who should act and how? Future outlook for this kind of practice.</div>
+      </div>
+
+      <div style="height:16px;display:flex;gap:0;">
+        <div style="flex:1;display:flex;justify-content:center;"><div style="width:1px;height:16px;background:#888780;transform:rotate(-20deg);transform-origin:top center;"></div></div>
+        <div style="flex:1;display:flex;justify-content:center;"><div style="width:1px;height:16px;background:#888780;transform:rotate(20deg);transform-origin:top center;"></div></div>
+      </div>
+      <div class="d-cols2">
+        <div class="d-card d-gray"><div class="d-card-title">References</div><div class="d-card-sub">3 sources total — one per theme. All three must come from outside the artworld. At least 2 must be peer-reviewed. Each should connect to its theme and to the speculative artwork. Formatted consistently in ASA or Chicago style.</div></div>
+        <div class="d-card d-gray"><div class="d-card-title">Images</div><div class="d-card-sub">Images of each artwork discussed. Image of the speculative artwork. Minimum 3 sketches per group member. No AI images, stock photos, or unaltered screenshots.</div></div>
+      </div>
+
+      <div class="d-legend">
+        <span>Legend:</span>
+        <span><span class="d-leg-sw" style="background:#CECBF6;border-color:#7F77DD;"></span>Speculative artwork connection</span>
+        <span><span class="d-leg-sw" style="background:#EEEDFE;border-color:#7F77DD;"></span>Theme</span>
+        <span><span class="d-leg-sw" style="background:#E1F5EE;border-color:#5DCAA5;"></span>Artist + artwork</span>
+        <span><span class="d-leg-sw" style="background:#F1EFE8;border-color:#888780;"></span>Article / references</span>
+        <span><span class="d-leg-sw" style="background:#FAECE7;border-color:#F0997B;"></span>Personal connections</span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="section-divider">
+    <span class="section-divider-label">Part A — Self-Evaluation</span>
+    <span class="section-divider-line"></span>
+  </div>
+
+  <!-- ② Thesis -->
+  <div class="card" id="card-thesis" data-owner="">
+    <div class="card-head">
+      <h2 class="card-title">Introduction &amp; thesis</h2>
+      <span class="part-tag">Part 2</span>
+    
+      <div class="owner-select-wrap"><span class="owner-tag" id="card-thesis-owner-tag">+ Assign</span><select id="card-thesis-owner-sel" onchange="setCardOwner('card-thesis', this.value)"><option value="">+ Assign</option></select></div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <label class="field-label">How clear and focused is your thesis?</label>
+        <p class="field-hint">Does your thesis clearly state what the project is about and why it matters? Is it specific enough to give direction — or still broad?</p>
+        <div class="radio-row">
+          <label class="radio-pill green"><input type="radio" name="thesis-clarity" value="clear">Strong and focused</label>
+          <label class="radio-pill"><input type="radio" name="thesis-clarity" value="partial">Getting there</label>
+          <label class="radio-pill"><input type="radio" name="thesis-clarity" value="vague">Too vague</label>
+          <label class="radio-pill"><input type="radio" name="thesis-clarity" value="missing">Not yet written</label>
+        </div>
+        <textarea id="q-thesis" placeholder="Write your thesis as it currently stands (or your best draft of it). What still needs to be sharpened?"></textarea>
+        <div class="improve-block">
+          <div class="improve-label">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            What needs to improve
+          </div>
+          <textarea id="imp-thesis" placeholder="What specifically needs to change? (e.g. 'We need to narrow the claim to focus on X rather than covering both X and Y' or 'We need to add a reason why this matters — the so-what is missing')"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ Body ideas -->
+  <div class="card" id="card-body-ideas" data-owner="">
+    <div class="card-head">
+      <h2 class="card-title">Body — ideas and structure</h2>
+      <span class="part-tag">Part 3</span>
+    
+      <div class="owner-select-wrap"><span class="owner-tag" id="card-body-ideas-owner-tag">+ Assign</span><select id="card-body-ideas-owner-sel" onchange="setCardOwner('card-body-ideas', this.value)"><option value="">+ Assign</option></select></div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <label class="field-label">Are your three themes clearly defined?</label>
+        <p class="field-hint">Does each theme have one clear focus? Is the order logical? Does each theme connect to your speculative artwork?</p>
+        <div class="radio-row">
+          <label class="radio-pill green"><input type="radio" name="themes-clarity" value="clear">All three are focused</label>
+          <label class="radio-pill"><input type="radio" name="themes-clarity" value="partial">Some are clear</label>
+          <label class="radio-pill"><input type="radio" name="themes-clarity" value="weak">Still developing</label>
+        </div>
+        <textarea id="q-themes" placeholder="Name each theme and give a one-sentence description of its focus. Which theme still needs the most work?"></textarea>
+        <div class="improve-block">
+          <div class="improve-label">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            What needs to improve
+          </div>
+          <textarea id="imp-themes" placeholder="Which theme is weakest and what would fix it? (e.g. 'Theme 2 covers too much — we need to narrow it to just X' or 'Theme 3 doesn't connect to the speculative artwork yet — we need to add a link')"></textarea>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Cohesion within each theme</label>
+        <p class="field-hint">Within each theme, do the artworks, sources, and ideas belong together? Or does a theme mix things that pull in different directions?</p>
+        <div class="scale-row" id="sc-cohesion">
+          <button class="scale-btn" data-v="1">1</button>
+          <button class="scale-btn" data-v="2">2</button>
+          <button class="scale-btn" data-v="3">3</button>
+          <button class="scale-btn" data-v="4">4</button>
+          <button class="scale-btn" data-v="5">5</button>
+        </div>
+        <div class="scale-labels"><span>Very scattered</span><span>Tightly cohesive</span></div>
+        <textarea id="q-cohesion" placeholder="For each theme, does everything in it feel like it belongs together? Which theme is most scattered?" style="margin-top:.75rem"></textarea>
+        <div class="improve-block low-score-improve" id="imp-cohesion-wrap">
+          <div class="improve-label">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            What needs to improve
+          </div>
+          <textarea id="imp-cohesion" placeholder="Which theme is most scattered and what would bring it together? (e.g. 'Remove [source] from Theme 1 — it belongs in Theme 3' or 'The two artworks in Theme 2 need a clearer connecting idea')"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ Artwork analysis -->
+  <div class="card" id="card-artwork" data-owner="">
+    <div class="card-head">
+      <h2 class="card-title">Artwork analysis</h2>
+      <span class="part-tag">Part 3 cont.</span>
+    
+      <div class="owner-select-wrap"><span class="owner-tag" id="card-artwork-owner-tag">+ Assign</span><select id="card-artwork-owner-sel" onchange="setCardOwner('card-artwork', this.value)"><option value="">+ Assign</option></select></div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <label class="field-label">Number of artworks you are discussing</label>
+        <div class="radio-row">
+          <label class="radio-pill green"><input type="radio" name="artwork-count" value="3+">3 or more</label>
+          <label class="radio-pill"><input type="radio" name="artwork-count" value="2">Exactly 2</label>
+          <label class="radio-pill"><input type="radio" name="artwork-count" value="1">Only 1</label>
+          <label class="radio-pill"><input type="radio" name="artwork-count" value="0">None yet</label>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Depth of artwork analysis</label>
+        <p class="field-hint">Are you doing genuine visual analysis — describing the work in detail and explaining what choices the artist made and why? Or mostly summarising what the work is about?</p>
+        <div class="scale-row" id="sc-analysis">
+          <button class="scale-btn" data-v="1">1</button>
+          <button class="scale-btn" data-v="2">2</button>
+          <button class="scale-btn" data-v="3">3</button>
+          <button class="scale-btn" data-v="4">4</button>
+          <button class="scale-btn" data-v="5">5</button>
+        </div>
+        <div class="scale-labels"><span>Mostly summary</span><span>Genuine analysis</span></div>
+        <textarea id="q-analysis" placeholder="For each artwork, are you describing specific visual elements and explaining what they do? Which artwork analysis is weakest?" style="margin-top:.75rem"></textarea>
+        <div class="improve-block low-score-improve" id="imp-analysis-wrap">
+          <div class="improve-label">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            What needs to improve
+          </div>
+          <textarea id="imp-analysis" placeholder="Which artwork needs deeper analysis and what would that look like? (e.g. 'For [artwork] we only describe the topic — we need to describe the actual visual elements: composition, color, scale, material, and what those choices communicate')"></textarea>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Connection of artworks to the speculative piece</label>
+        <p class="field-hint">Can you trace a clear line from each artwork to your speculative artwork — in theme, medium, or idea?</p>
+        <div class="radio-row">
+          <label class="radio-pill green"><input type="radio" name="artwork-spec" value="all">All artworks connect</label>
+          <label class="radio-pill"><input type="radio" name="artwork-spec" value="most">Most connect</label>
+          <label class="radio-pill"><input type="radio" name="artwork-spec" value="few">A few connect</label>
+          <label class="radio-pill"><input type="radio" name="artwork-spec" value="none">Not yet</label>
+        </div>
+        <textarea id="q-artwork-spec" placeholder="For each artwork, describe its connection to the speculative piece. Which connections are clearest? Which feel forced or missing?"></textarea>
+        <div class="improve-block">
+          <div class="improve-label">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            What needs to improve
+          </div>
+          <textarea id="imp-artwork-spec" placeholder="For any artwork that doesn't connect clearly, what would fix it? (e.g. 'For [artwork] we need a sentence explaining how it directly informs the speculative piece' or 'Replace [artwork] with one that uses the same medium as our proposal')"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑤ Research & sources -->
+  <div class="card" id="card-research" data-owner="">
+    <div class="card-head">
+      <h2 class="card-title">Research and sources</h2>
+      <span class="part-tag">Part 3 cont.</span>
+    
+      <div class="owner-select-wrap"><span class="owner-tag" id="card-research-owner-tag">+ Assign</span><select id="card-research-owner-sel" onchange="setCardOwner('card-research', this.value)"><option value="">+ Assign</option></select></div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <label class="field-label">Source requirements</label>
+        <p class="field-hint">You need at least 3 sources, with at least 2 peer-reviewed. At least one non-art source must come from outside the art world (science, technology, sociology, psychology, etc.).</p>
+        <div class="radio-row">
+          <label class="radio-pill green"><input type="radio" name="sources-req" value="met">Requirements met</label>
+          <label class="radio-pill"><input type="radio" name="sources-req" value="partial">Partially met</label>
+          <label class="radio-pill"><input type="radio" name="sources-req" value="unmet">Not yet met</label>
+        </div>
+        <textarea id="q-sources" placeholder="List your current sources. Which are peer-reviewed? Which are from outside the art world? What's still missing?"></textarea>
+        <div class="improve-block">
+          <div class="improve-label">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            What needs to improve
+          </div>
+          <textarea id="imp-sources" placeholder="What kind of source is missing and where will you look? (e.g. 'We need one more peer-reviewed source on [topic] — search JSTOR or Google Scholar' or 'Our outside-field source needs to come from a non-art discipline — look for cognitive science research related to our theme')"></textarea>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">How well integrated are your sources?</label>
+        <p class="field-hint">Are sources woven into your argument — or just dropped in? Does each source connect clearly to the ideas in its section?</p>
+        <div class="scale-row" id="sc-sources">
+          <button class="scale-btn" data-v="1">1</button>
+          <button class="scale-btn" data-v="2">2</button>
+          <button class="scale-btn" data-v="3">3</button>
+          <button class="scale-btn" data-v="4">4</button>
+          <button class="scale-btn" data-v="5">5</button>
+        </div>
+        <div class="scale-labels"><span>Just listed / dropped in</span><span>Fully integrated</span></div>
+        <div class="improve-block low-score-improve" id="imp-sources-int-wrap" style="margin-top:.75rem">
+          <div class="improve-label">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            What needs to improve
+          </div>
+          <textarea id="imp-sources-int" placeholder="Which source is least integrated and what would fix it? (e.g. 'Source X is cited but we never explain what it argues — add a sentence summarising its claim and another connecting it to our theme')"></textarea>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Citation formatting</label>
+        <p class="field-hint">Are your citations consistently formatted in ASA or Chicago style?</p>
+        <div class="radio-row">
+          <label class="radio-pill green"><input type="radio" name="citations" value="correct">Looks correct</label>
+          <label class="radio-pill"><input type="radio" name="citations" value="some-issues">Some issues</label>
+          <label class="radio-pill"><input type="radio" name="citations" value="needs-work">Needs significant work</label>
+        </div>
+        <div class="improve-block">
+          <div class="improve-label">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            What needs to improve
+          </div>
+          <textarea id="imp-citations" placeholder="List the specific citation issues and who will fix them. (e.g. 'In-text citations are missing page numbers for direct quotes' or 'Reference list entries for websites are missing access dates')"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑥ Speculative artwork -->
+  <div class="card" id="card-speculative" data-owner="">
+    <div class="card-head">
+      <h2 class="card-title">Speculative artwork</h2>
+      <div class="owner-select-wrap"><span class="owner-tag" id="card-speculative-owner-tag">+ Assign</span><select id="card-speculative-owner-sel" onchange="setCardOwner('card-speculative', this.value)"><option value="">+ Assign</option></select></div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <label class="field-label">How developed is the speculative artwork concept?</label>
+        <div class="radio-row">
+          <label class="radio-pill green"><input type="radio" name="spec-concept" value="strong">Clearly articulated</label>
+          <label class="radio-pill"><input type="radio" name="spec-concept" value="partial">Partially developed</label>
+          <label class="radio-pill"><input type="radio" name="spec-concept" value="weak">Still vague</label>
+          <label class="radio-pill"><input type="radio" name="spec-concept" value="missing">Not yet described</label>
+        </div>
+        <textarea id="q-spec" placeholder="Describe the speculative artwork in a few sentences as it stands now. What's still unclear or underdeveloped?"></textarea>
+        <div class="improve-block">
+          <div class="improve-label">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            What needs to improve
+          </div>
+          <textarea id="imp-spec" placeholder="What needs to be developed further? (e.g. 'We need to describe what the viewer actually experiences' or 'We haven't explained which technology it uses or how it works' or 'The connection to the thesis isn't explicit yet')"></textarea>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Do all three themes connect back to the speculative artwork?</label>
+        <p class="field-hint">Each theme should directly support or inform your speculative piece — not just relate to the other artworks discussed.</p>
+        <div class="radio-row">
+          <label class="radio-pill green"><input type="radio" name="themes-spec" value="all">All three connect</label>
+          <label class="radio-pill"><input type="radio" name="themes-spec" value="two">Two connect</label>
+          <label class="radio-pill"><input type="radio" name="themes-spec" value="one">Only one</label>
+          <label class="radio-pill"><input type="radio" name="themes-spec" value="none">Not yet</label>
+        </div>
+        <textarea id="q-themes-spec" placeholder="Go through each theme. For each one, describe its connection to the speculative piece. Which feels least connected?"></textarea>
+        <div class="improve-block">
+          <div class="improve-label">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            What needs to improve
+          </div>
+          <textarea id="imp-themes-spec" placeholder="For any theme that doesn't connect to the speculative piece, what would fix it? (e.g. 'Add a closing paragraph to Theme 2 explaining how the ideas in it directly shaped a design decision in the speculative piece')"></textarea>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Sketches</label>
+        <p class="field-hint">Does the project include at least 3 sketches per group member?</p>
+        <div class="radio-row">
+          <label class="radio-pill green"><input type="radio" name="sketches" value="yes">Requirement met</label>
+          <label class="radio-pill"><input type="radio" name="sketches" value="partial">Some but not all</label>
+          <label class="radio-pill"><input type="radio" name="sketches" value="no">Missing or insufficient</label>
+        </div>
+        <div class="improve-block">
+          <div class="improve-label">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            What needs to improve
+          </div>
+          <textarea id="imp-sketches" placeholder="Who still needs to add sketches and what should they show? (e.g. 'Member X needs 2 more sketches — one showing a top-down view and one showing a user interaction moment')"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑦ Ratings -->
+  <div class="card" id="card-ratings" data-owner="">
+    <div class="card-head">
+      <h2 class="card-title">Self-ratings</h2>
+      <span class="part-tag">1 = needs significant work · 5 = strong</span>
+    
+      <div class="owner-select-wrap"><span class="owner-tag" id="card-ratings-owner-tag">+ Assign</span><select id="card-ratings-owner-sel" onchange="setCardOwner('card-ratings', this.value)"><option value="">+ Assign</option></select></div>
+    </div>
+    <div class="card-body" style="padding:1rem 1.25rem">
+      <div class="ratings-table">
+        <div class="rating-row"><span class="rating-label">Clarity and strength of thesis</span><div class="stars" id="r-thesis" data-val="0"></div></div>
+        <div class="rating-row"><span class="rating-label">Clarity of themes and structure</span><div class="stars" id="r-structure" data-val="0"></div></div>
+        <div class="rating-row"><span class="rating-label">Depth of artwork analysis</span><div class="stars" id="r-artworks" data-val="0"></div></div>
+        <div class="rating-row"><span class="rating-label">Quality and integration of research</span><div class="stars" id="r-research" data-val="0"></div></div>
+        <div class="rating-row"><span class="rating-label">Speculative artwork concept</span><div class="stars" id="r-spec" data-val="0"></div></div>
+        <div class="rating-row"><span class="rating-label">Connection between all parts and speculative piece</span><div class="stars" id="r-connection" data-val="0"></div></div>
+        <div class="rating-row"><span class="rating-label">Overall project readiness for draft paper</span><div class="stars" id="r-overall" data-val="0"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑧ Overall reflection -->
+  <div class="card" id="card-overall" data-owner="">
+    <div class="card-head">
+      <h2 class="card-title">Overall reflection</h2>
+      <div class="owner-select-wrap"><span class="owner-tag" id="card-overall-owner-tag">+ Assign</span><select id="card-overall-owner-sel" onchange="setCardOwner('card-overall', this.value)"><option value="">+ Assign</option></select></div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <label class="field-label" for="q-strengths">Two things your project is doing well</label>
+        <p class="field-hint">Be specific — name the section or element that stands out as genuinely strong.</p>
+        <textarea id="q-strengths" placeholder="1.&#10;2." style="min-height:90px"></textarea>
+      </div>
+      <div class="field">
+        <label class="field-label" for="q-biggest-gap">The biggest gap before the draft is ready</label>
+        <p class="field-hint">If you could only address one problem before submitting the draft, what would have the most impact?</p>
+        <textarea id="q-biggest-gap" placeholder="Describe the highest-priority issue and why fixing it matters most."></textarea>
+      </div>
+      <div class="field">
+        <label class="field-label" for="q-group-notes">Group process notes</label>
+        <p class="field-hint">Optional — note anything about how the group is working together that might affect the final draft.</p>
+        <textarea id="q-group-notes" placeholder="e.g. Communication issues, uneven workload, scheduling conflicts, etc."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">
+    <span class="section-divider-label">Part B — Draft Paper Task Checklist</span>
+    <span class="section-divider-line"></span>
+  </div>
+
+  <!-- ⑨ Task checklist -->
+  <div class="card">
+    <div class="card-head">
+      <h2 class="card-title">Draft paper task checklist</h2>
+      <span class="part-tag">Assign · Schedule · Track</span>
+    </div>
+    <div class="card-body" style="gap:.25rem; padding:1rem 1.25rem">
+      <p style="font-size:.8rem;color:var(--ink-3);margin-bottom:.75rem;line-height:1.5">Assign each task to a group member, set a due date, and mark its status. Check the box when complete. Add group members in the Group Info card above — they'll appear in the dropdown.</p>
+
+      <div class="checklist" id="checklist">
+
+        <div class="checklist-group-label">Introduction</div>
+        <div class="checklist-item" data-id="intro-hook">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Write the opening hook and context</div><div class="check-subtext">Engaging opening that draws the reader in and establishes the subject, stakes, and why this matters</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="intro-hook-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Opening slide introduces the project and its stakes clearly</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="intro-thesis">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Finalize and write the thesis statement</div><div class="check-subtext">A specific, arguable claim that tells the reader what the paper will argue and why it matters — not just a topic statement</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="intro-thesis-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Thesis is stated clearly on a slide and spoken aloud in the presentation</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="intro-roadmap">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Write introduction roadmap paragraph</div><div class="check-subtext">Brief overview of the three themes and how they build toward the speculative artwork</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="intro-roadmap-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Presentation has a structure slide showing the three themes and the speculative artwork</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+
+        <div class="checklist-group-label">Theme 1</div>
+        <div class="checklist-item" data-id="t1-topic">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Write topic sentence and section intro</div><div class="check-subtext">State the theme in one clear sentence; explain how it connects to the speculative artwork before diving into examples</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="t1-topic-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Slide or spoken intro establishes Theme 1's argument and its link to the speculative artwork</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="t1-spec-link">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Write speculative artwork connection (Theme 1)</div><div class="check-subtext">Explicitly state how this theme directly informs or shapes the speculative artwork — not just how it relates to the topic</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="t1-spec-link-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: The connection between Theme 1 and the speculative artwork is made explicit on a slide or in spoken delivery</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="t1-artwork">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Write artist + artwork analysis (Theme 1)</div><div class="check-subtext">Describe concept, content, digital media, materials, and formal elements — all in service of showing what this artwork shares with the speculative piece in idea, form, or approach</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="t1-artwork-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Artwork is shown with at least one image; its connection to the theme and speculative artwork is explained</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="t1-article">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Integrate article (Theme 1)</div><div class="check-subtext">Source from outside the artworld — science, technology, sociology, psychology, history, etc. Explain what it argues and why that matters for the speculative artwork specifically. Must be peer-reviewed if this is one of your 2 required peer-reviewed sources</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="t1-article-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Article is cited in the presentation and its argument is briefly summarized for the audience</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="t1-personal">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Write personal connections (Theme 1)</div><div class="check-subtext">How does this theme connect to the group's lived experiences, passions, opinions, and interests? Why does it matter to you as people — not just as students?</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="t1-personal-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Personal connection to Theme 1 is spoken in the presentation — not just read from slides</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+
+        <div class="checklist-group-label">Theme 2</div>
+        <div class="checklist-item" data-id="t2-topic">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Write topic sentence and section intro</div><div class="check-subtext">State the theme in one clear sentence; explain how it connects to the speculative artwork before diving into examples</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="t2-topic-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Slide or spoken intro establishes Theme 2's argument and its link to the speculative artwork</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="t2-spec-link">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Write speculative artwork connection (Theme 2)</div><div class="check-subtext">Explicitly state how this theme directly informs or shapes the speculative artwork — not just how it relates to the topic</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="t2-spec-link-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: The connection between Theme 2 and the speculative artwork is made explicit on a slide or in spoken delivery</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="t2-artwork">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Write artist + artwork analysis (Theme 2)</div><div class="check-subtext">Describe concept, content, digital media, materials, and formal elements — all in service of showing what this artwork shares with the speculative piece in idea, form, or approach</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="t2-artwork-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Artwork is shown with at least one image; its connection to the theme and speculative artwork is explained</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="t2-article">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Integrate article (Theme 2)</div><div class="check-subtext">Source from outside the artworld — science, technology, sociology, psychology, history, etc. Explain what it argues and why that matters for the speculative artwork specifically. Must be peer-reviewed if this is one of your 2 required peer-reviewed sources</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="t2-article-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Article is cited in the presentation and its argument is briefly summarized for the audience</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="t2-personal">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Write personal connections (Theme 2)</div><div class="check-subtext">How does this theme connect to the group's lived experiences, passions, opinions, and interests? Why does it matter to you as people — not just as students?</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="t2-personal-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Personal connection to Theme 2 is spoken in the presentation — not just read from slides</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+
+        <div class="checklist-group-label">Theme 3</div>
+        <div class="checklist-item" data-id="t3-topic">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Write topic sentence and section intro</div><div class="check-subtext">State the theme in one clear sentence; explain how it connects to the speculative artwork before diving into examples</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="t3-topic-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Slide or spoken intro establishes Theme 3's argument and its link to the speculative artwork</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="t3-spec-link">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Write speculative artwork connection (Theme 3)</div><div class="check-subtext">Explicitly state how this theme directly informs or shapes the speculative artwork — not just how it relates to the topic</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="t3-spec-link-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: The connection between Theme 3 and the speculative artwork is made explicit on a slide or in spoken delivery</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="t3-artwork">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Write artist + artwork analysis (Theme 3)</div><div class="check-subtext">Describe concept, content, digital media, materials, and formal elements — all in service of showing what this artwork shares with the speculative piece in idea, form, or approach</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="t3-artwork-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Artwork is shown with at least one image; its connection to the theme and speculative artwork is explained</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="t3-article">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Integrate article (Theme 3)</div><div class="check-subtext">Source from outside the artworld — science, technology, sociology, psychology, history, etc. Explain what it argues and why that matters for the speculative artwork specifically. Must be peer-reviewed if this is one of your 2 required peer-reviewed sources</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="t3-article-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Article is cited in the presentation and its argument is briefly summarized for the audience</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="t3-personal">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Write personal connections (Theme 3)</div><div class="check-subtext">How does this theme connect to the group's lived experiences, passions, opinions, and interests? Why does it matter to you as people — not just as students?</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="t3-personal-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Personal connection to Theme 3 is spoken in the presentation — not just read from slides</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+
+        <div class="checklist-group-label">Speculative Artwork</div>
+        <div class="checklist-item" data-id="spec-describe">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Write speculative artwork description</div><div class="check-subtext">What is it? How does it work? What does a viewer or participant experience? Be specific about the concept, the digital media and technology used, and the form</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="spec-describe-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: The artwork is described clearly — what it is, how it works, what the audience sees and does</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="spec-tech">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Describe the technology in detail</div><div class="check-subtext">Name and explain each technological component for a non-specialist; no jargon left undefined; explain how the technology enables the concept</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="spec-tech-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Technology is explained in plain language on at least one slide; no unexplained jargon</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="spec-connect">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Connect speculative artwork to thesis and all three themes</div><div class="check-subtext">Show explicitly how the artwork holds all three themes simultaneously — not three separate ideas but one unified argument</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="spec-connect-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: A synthesis moment in the presentation shows how all three themes feed into the speculative artwork</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="spec-sketches">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Complete and include all sketches (min. 3 per member)</div><div class="check-subtext">Label each sketch with the member's name and what it shows; include different views — concept, interaction, detail, or spatial layout</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="spec-sketches-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Sketches are shown in the presentation and each member's contribution is identified</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+
+        <div class="checklist-group-label">Synthesis and Conclusion</div>
+        <div class="checklist-item" data-id="synthesis">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Write the synthesis paragraph</div><div class="check-subtext">Show how all three themes converge in the speculative artwork; the work is not three ideas but one unified argument — the viewer's experience enacts what the paper argues</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="synthesis-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Synthesis is clearly communicated — the audience understands how the three themes converge in the artwork</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="conclusion">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Write the conclusion</div><div class="check-subtext">~5 sentences: synthesize the main argument, restate the thesis in light of the body, call to action (who should act and how?), future outlook for this kind of practice</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="conclusion-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Conclusion is delivered in the presentation and includes a call to action and a future outlook</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+
+        <div class="checklist-group-label">Research &amp; References</div>
+        <div class="checklist-item" data-id="sources-confirm">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Confirm all 3 sources are secured and read</div><div class="check-subtext">One source per theme — all three from outside the artworld; at least 2 must be peer-reviewed; all must connect to the speculative artwork</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="sources-confirm-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: All sources referenced in the presentation are correctly attributed on a references slide</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="citations-format">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Format all citations (ASA or Chicago)</div><div class="check-subtext">In-text citations and full reference list; consistent format throughout the paper</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="citations-format-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: A references slide is included in the presentation with all sources consistently listed</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="images-gather">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Source and prepare all images</div><div class="check-subtext">Image of each artwork discussed; image(s) of the speculative artwork; min. 3 sketches per group member — no AI-generated images, stock photos, or unaltered screenshots</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="images-gather-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: All images in the presentation are credited; no AI-generated or stock images are used</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+
+        <div class="checklist-group-label">Final Polish</div>
+        <div class="checklist-item" data-id="proofread">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Proofread and edit the full draft</div><div class="check-subtext">Grammar, clarity, flow, and consistent voice across all sections — read the full paper aloud as a team before submitting</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="proofread-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Presentation slides are proofread; no typos, consistent fonts and capitalization throughout</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="transitions">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Add transitions between sections</div><div class="check-subtext">Each section should set up the next; the paper should read as a coherent whole, not a collection of separate pieces</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="transitions-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Transitions between presentation sections are smooth — brief spoken bridges between themes</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="final-assemble">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Assemble and format the final draft document</div><div class="check-subtext">Combine all sections; add title page, page numbers, consistent headings, and reference list at the end</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="final-assemble-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Final presentation deck is assembled, slides are numbered, and the title slide is complete</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+        <div class="checklist-item" data-id="pres-rehearse">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label">Rehearse the full presentation as a group</div><div class="check-subtext">Run through the complete presentation at least once; confirm timing, transitions, and speaking roles for every member</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
+        </div>
+        <div class="checklist-item" data-id="pres-rehearse-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div><div class="check-label" style="color:var(--blue);">📽 Present: Every group member knows their speaking part and the presentation fits within the time limit</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
+          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
+          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
+          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
+          <div class="check-pres"></div>
+        </div>
+
+      </div><!-- /checklist -->
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-export" id="export-btn" onclick="exportPDF()">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M7.5 1v9M4.5 7l3 3 3-3M2.5 13h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Export PDF
+    </button>
+    <button class="btn btn-ghost" onclick="clearForm()">Clear form</button>
+    <p id="print-hint" style="display:none;font-size:.8rem;color:var(--ink-3)">Printing… choose <strong>Save as PDF</strong> as the destination, then click Save.</p>
+  </div>
+
+</main>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// Data & config
+// ─────────────────────────────────────────────────────────────────────────────
+var STORE        = 'group-self-eval-woven-v2';  // localStorage fallback key
+var RADIO_GROUPS = ['thesis-clarity','themes-clarity','artwork-count','artwork-spec',
+                    'sources-req','citations','spec-concept','themes-spec','sketches'];
+var RATING_IDS   = ['r-thesis','r-structure','r-artworks','r-research','r-spec','r-connection','r-overall'];
+var SCALE_IDS    = ['sc-cohesion','sc-analysis','sc-sources'];
+var SCALE_LOW_IDS = { 'sc-cohesion': 'imp-cohesion-wrap', 'sc-analysis': 'imp-analysis-wrap', 'sc-sources': 'imp-sources-int-wrap' };
+
+var memberCount   = 0;
+var members       = [];
+var fbConfigured  = false; // flips to true once real API key is detected
+var isSyncing     = false; // prevent remote→local feedback loops
+var saveTimer;
+var fbSaveTimer;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Firebase helpers
+// ─────────────────────────────────────────────────────────────────────────────
+function checkFbConfigured() {
+  // Firebase module sets window._fbReady; also check the API key wasn't left as placeholder
+  return !!(window._fbReady && window._fbSave && window._fbListen);
+}
+
+function setSyncStatus(state, msg) {
+  var dot  = document.getElementById('sync-dot');
+  var msgEl = document.getElementById('sync-msg');
+  var badge = document.getElementById('sync-badge');
+  if (!dot) return;
+  dot.className  = 'sync-dot ' + (state || '');
+  msgEl.textContent = msg || '';
+  if (badge) badge.textContent = state === 'live' ? 'Live' : state === 'saving' ? 'Saving…' : state === 'error' ? 'Offline' : 'Sync';
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Collect the full form state as a plain object
+// ─────────────────────────────────────────────────────────────────────────────
+function collectState() {
+  var d = {};
+  allTextFields().forEach(function(el){
+    if (el.id && !el.closest('.members-grid') && !el.closest('.checklist-item')) d[el.id] = el.value;
+  });
+  RADIO_GROUPS.forEach(function(name){
+    var el = document.querySelector('input[name="' + name + '"]:checked');
+    if (el) d['radio-' + name] = el.value;
+  });
+  RATING_IDS.forEach(function(id){
+    var c = document.getElementById(id);
+    if (c) d['star-' + id] = c.getAttribute('data-val');
+  });
+  SCALE_IDS.forEach(function(id){
+    var c = document.getElementById(id);
+    if (c) d['scale-' + id] = c.getAttribute('data-val') || '0';
+  });
+  d.members = members;
+
+  // checklist
+  var cl = {};
+  document.querySelectorAll('.checklist-item').forEach(function(item) {
+    var id = item.getAttribute('data-id');
+    var presBox = item.querySelector('.pres-box');
+    cl[id] = {
+      checked:  item.querySelector('.check-box').classList.contains('checked'),
+      assignee: (item.querySelector('[data-field="assignee"]') || {}).value || '',
+      due:      (item.querySelector('[data-field="due"]') || {}).value || '',
+      status:   (item.querySelector('[data-field="status"]') || {}).value || 'not-started',
+      pres:     presBox ? presBox.classList.contains('checked') : false
+    };
+  });
+  d.checklist = cl;
+  return d;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Apply a state object to the DOM (used for both load & remote updates)
+// ─────────────────────────────────────────────────────────────────────────────
+function applyState(d, opts) {
+  opts = opts || {};
+  if (!d) return;
+
+  // Members
+  if (d.members && Array.isArray(d.members)) {
+    members = d.members;
+    memberCount = members.reduce(function(max, m){ return Math.max(max, m.id); }, 0);
+    renderMembers();
+    updateAllAssigneeDropdowns();
+  }
+
+  // Fields, radios, stars, scales
+  Object.keys(d).forEach(function(k) {
+    var v = d[k];
+    if (k === 'members' || k === 'checklist' || k === '_lastSaved') return;
+    if (k.indexOf('radio-') === 0) {
+      var el = document.querySelector('input[name="' + k.slice(6) + '"][value="' + v + '"]');
+      if (el) el.checked = true;
+    } else if (k.indexOf('star-') === 0) {
+      var c = document.getElementById(k.slice(5));
+      if (c) {
+        c.setAttribute('data-val', v);
+        c.querySelectorAll('.star').forEach(function(s, idx){ s.classList.toggle('active', idx < +v); });
+      }
+    } else if (k.indexOf('scale-') === 0) {
+      var sc = document.getElementById(k.slice(6));
+      if (sc) {
+        sc.setAttribute('data-val', v);
+        sc.querySelectorAll('.scale-btn').forEach(function(b){
+          b.classList.toggle('active', +b.getAttribute('data-v') === +v);
+        });
+        var wrapId = SCALE_LOW_IDS[k.slice(6)];
+        if (wrapId) {
+          var wrap = document.getElementById(wrapId);
+          if (wrap) wrap.style.display = (+v <= 3 && +v > 0) ? 'block' : 'none';
+        }
+      }
+    } else {
+      var field = document.getElementById(k);
+      if (field && !opts.skipFocused || field !== document.activeElement) {
+        field.value = v;
+        autoGrow(field);
+      }
+    }
+  });
+
+  // Checklist
+  if (d.checklist) {
+    setTimeout(function(){
+      updateAllAssigneeDropdowns();
+      loadChecklist(d.checklist);
+    }, 50);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Save — writes localStorage always; debounces Firebase write
+// ─────────────────────────────────────────────────────────────────────────────
+function save() {
+  if (isSyncing) return; // don't echo back remote changes
+  var d = collectState();
+
+  // Always write localStorage as fallback
+  try { localStorage.setItem(STORE, JSON.stringify(d)); } catch(e) {}
+
+  // Firebase — debounced so rapid typing doesn't spam writes
+  if (fbConfigured) {
+    setSyncStatus('saving', 'Saving…');
+    clearTimeout(fbSaveTimer);
+    fbSaveTimer = setTimeout(function() {
+      window._fbSave(d).then(function() {
+        setSyncStatus('live', 'All changes saved');
+      }).catch(function() {
+        setSyncStatus('error', 'Could not reach server — saved locally');
+      });
+    }, 800);
+  }
+
+  flashSaved();
+  updateProgress();
+}
+
+function debounceSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(save, 500);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// localStorage fallback load
+// ─────────────────────────────────────────────────────────────────────────────
+function loadRaw() {
+  try { var r = localStorage.getItem(STORE); return r ? JSON.parse(r) : {}; } catch(e) { return {}; }
+}
+
+function load() {
+  applyState(loadRaw());
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Checklist helpers
+// ─────────────────────────────────────────────────────────────────────────────
+function loadChecklist(data) {
+  if (!data) return;
+  document.querySelectorAll('.checklist-item').forEach(function(item) {
+    var id = item.getAttribute('data-id');
+    if (!data[id]) return;
+    var d = data[id];
+    var box   = item.querySelector('.check-box');
+    var label = item.querySelector('.check-label');
+    if (d.checked) { box.classList.add('checked'); label.classList.add('done'); }
+    else           { box.classList.remove('checked'); label.classList.remove('done'); }
+    var asel = item.querySelector('[data-field="assignee"]');
+    if (asel) asel.value = d.assignee || '';
+    var due = item.querySelector('[data-field="due"]');
+    if (due) due.value = d.due || '';
+    var ssel = item.querySelector('[data-field="status"]');
+    if (ssel) { ssel.value = d.status || 'not-started'; colorStatus(ssel); }
+    var presBox = item.querySelector('.pres-box');
+    if (presBox) presBox.classList.toggle('checked', !!d.pres);
+  });
+}
+
+function saveChecklist() { save(); }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// UI helpers
+// ─────────────────────────────────────────────────────────────────────────────
+function flashSaved() {
+  var label = document.getElementById('save-label');
+  var dot   = document.getElementById('save-dot');
+  if (label) label.textContent = 'Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  if (dot)   { dot.classList.add('on'); setTimeout(function(){ dot.classList.remove('on'); }, 1500); }
+}
+
+function toggleCheck(box) {
+  box.classList.toggle('checked');
+  var label = box.closest('.checklist-item').querySelector('.check-label');
+  label.classList.toggle('done', box.classList.contains('checked'));
+  save();
+}
+
+function togglePres(box) {
+  box.classList.toggle('checked');
+  save();
+}
+
+function colorStatus(sel) {
+  if (sel.closest('.check-status')) sel.setAttribute('data-status', sel.value);
+}
+
+function autoGrow(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Member management
+// ─────────────────────────────────────────────────────────────────────────────
+function addMember(name) {
+  memberCount++;
+  members.push({ id: memberCount, name: name || '' });
+  renderMembers();
+  updateAllAssigneeDropdowns();
+  save();
+}
+
+function removeMember(id) {
+  members = members.filter(function(m){ return m.id !== id; });
+  renderMembers();
+  updateAllAssigneeDropdowns();
+  save();
+}
+
+function renderMembers() {
+  var grid = document.getElementById('members-grid');
+  grid.innerHTML = '';
+  members.forEach(function(m, idx) {
+    var row = document.createElement('div');
+    row.className = 'member-row';
+    row.innerHTML =
+      '<div class="member-num">' + (idx+1) + '</div>' +
+      '<input type="text" placeholder="Member name" value="' + escHtml(m.name) + '" ' +
+        'oninput="members[' + idx + '].name=this.value;updateAllAssigneeDropdowns();debounceSave()" autocomplete="off">' +
+      '<button class="remove-member" onclick="removeMember(' + m.id + ')" title="Remove member" type="button">×</button>';
+    grid.appendChild(row);
+  });
+}
+
+function escHtml(str) {
+  return (str||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function updateAllAssigneeDropdowns() {
+  document.querySelectorAll('.check-assignee select').forEach(function(sel) {
+    var cur = sel.value;
+    sel.innerHTML = '<option value="">— Assign —</option>';
+    members.forEach(function(m) {
+      if (!m.name.trim()) return;
+      var o = document.createElement('option');
+      o.value = m.name; o.textContent = m.name;
+      if (m.name === cur) o.selected = true;
+      sel.appendChild(o);
+    });
+    sel.value = cur;
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Progress
+// ─────────────────────────────────────────────────────────────────────────────
+function allTextFields() { return Array.from(document.querySelectorAll('input[type="text"], textarea')); }
+
+function totalCount() {
+  return allTextFields().length + RADIO_GROUPS.length + RATING_IDS.length + SCALE_IDS.length +
+         document.querySelectorAll('.checklist-item').length;
+}
+
+function filledCount() {
+  var n = 0;
+  allTextFields().forEach(function(el){ if (el.value.trim()) n++; });
+  RADIO_GROUPS.forEach(function(name){ if (document.querySelector('input[name="'+name+'"]:checked')) n++; });
+  RATING_IDS.forEach(function(id){ var c=document.getElementById(id); if(c&&+c.getAttribute('data-val')>0) n++; });
+  SCALE_IDS.forEach(function(id){ var c=document.getElementById(id); if(c&&+c.getAttribute('data-val')>0) n++; });
+  document.querySelectorAll('.checklist-item').forEach(function(item){
+    if ((item.querySelector('[data-field="assignee"]')||{}).value) n++;
+  });
+  return n;
+}
+
+function updateProgress() {
+  var pct = Math.round(filledCount() / totalCount() * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = pct + '% complete';
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Stars & Scales
+// ─────────────────────────────────────────────────────────────────────────────
+function buildStars() {
+  RATING_IDS.forEach(function(id) {
+    var c = document.getElementById(id);
+    if (!c) return;
+    c.innerHTML = '';
+    for (var i = 1; i <= 5; i++) {
+      (function(n) {
+        var b = document.createElement('button');
+        b.className = 'star'; b.textContent = '★';
+        b.setAttribute('aria-label', n + ' star'); b.type = 'button';
+        b.addEventListener('click', function(){
+          c.setAttribute('data-val', n);
+          c.querySelectorAll('.star').forEach(function(s, idx){ s.classList.toggle('active', idx < n); });
+          save();
+        });
+        c.appendChild(b);
+      })(i);
+    }
+  });
+}
+
+function buildScales() {
+  SCALE_IDS.forEach(function(id) {
+    var c = document.getElementById(id);
+    if (!c) return;
+    c.querySelectorAll('.scale-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var v = +btn.getAttribute('data-v');
+        c.setAttribute('data-val', v);
+        c.querySelectorAll('.scale-btn').forEach(function(b){
+          b.classList.toggle('active', +b.getAttribute('data-v') === v);
+        });
+        var wrapId = SCALE_LOW_IDS[id];
+        if (wrapId) {
+          var wrap = document.getElementById(wrapId);
+          if (wrap) wrap.style.display = (v <= 3) ? 'block' : 'none';
+        }
+        save();
+      });
+    });
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Print
+// ─────────────────────────────────────────────────────────────────────────────
+function prepareForPrint() {
+  document.querySelectorAll('.low-score-improve').forEach(function(el){ el.style.display = 'block'; });
+  document.querySelectorAll('textarea').forEach(function(ta) {
+    var div = document.createElement('div');
+    div.className = ta.closest('.improve-block') ? 'improve-print-proxy' : 'print-text-proxy';
+    div.textContent = ta.value || '';
+    ta.parentNode.insertBefore(div, ta); ta.style.display = 'none';
+  });
+  document.querySelectorAll('input[type="text"]').forEach(function(inp) {
+    if (inp.closest('.members-grid') || inp.closest('.checklist-item')) return;
+    var div = document.createElement('div'); div.className = 'print-text-proxy';
+    div.textContent = inp.value || '';
+    inp.parentNode.insertBefore(div, inp); inp.style.display = 'none';
+  });
+}
+
+function restoreAfterPrint() {
+  document.querySelectorAll('.print-text-proxy,.improve-print-proxy').forEach(function(d){ d.parentNode.removeChild(d); });
+  document.querySelectorAll('textarea,input[type="text"]').forEach(function(el){ el.style.display = ''; });
+}
+
+window.addEventListener('beforeprint', prepareForPrint);
+window.addEventListener('afterprint',  restoreAfterPrint);
+
+function exportPDF() {
+  document.getElementById('print-hint').style.display = 'block';
+  document.getElementById('export-btn').disabled = true;
+  setTimeout(function(){
+    window.print();
+    setTimeout(function(){
+      document.getElementById('print-hint').style.display = 'none';
+      document.getElementById('export-btn').disabled = false;
+    }, 2000);
+  }, 150);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Clear
+// ─────────────────────────────────────────────────────────────────────────────
+function clearForm() {
+  if (!confirm('Clear all responses? This cannot be undone.')) return;
+  try { localStorage.removeItem(STORE); } catch(e) {}
+  if (fbConfigured) {
+    window._fbSave({ _cleared: true, _lastSaved: null }).catch(function(){});
+  }
+  allTextFields().forEach(function(el){
+    if (!el.closest('.checklist-item') && !el.closest('.members-grid')){ el.value = ''; el.style.height = ''; }
+  });
+  document.querySelectorAll('input[type="radio"]').forEach(function(el){ el.checked = false; });
+  RATING_IDS.forEach(function(id){
+    var c = document.getElementById(id); if (!c) return;
+    c.setAttribute('data-val','0'); c.querySelectorAll('.star').forEach(function(s){ s.classList.remove('active'); });
+  });
+  SCALE_IDS.forEach(function(id){
+    var c = document.getElementById(id); if (!c) return;
+    c.setAttribute('data-val','0'); c.querySelectorAll('.scale-btn').forEach(function(b){ b.classList.remove('active'); });
+  });
+  document.querySelectorAll('.low-score-improve').forEach(function(el){ el.style.display = 'none'; });
+  document.querySelectorAll('.checklist-item').forEach(function(item){
+    item.querySelector('.check-box').classList.remove('checked');
+    item.querySelector('.check-label').classList.remove('done');
+    var asel = item.querySelector('[data-field="assignee"]'); if (asel) asel.value = '';
+    var due  = item.querySelector('[data-field="due"]');      if (due)  due.value = '';
+    var ssel = item.querySelector('[data-field="status"]');   if (ssel){ ssel.value = 'not-started'; colorStatus(ssel); }
+    var pb   = item.querySelector('.pres-box');               if (pb)   pb.classList.remove('checked');
+  });
+  members = []; memberCount = 0; renderMembers(); updateAllAssigneeDropdowns();
+  document.getElementById('save-label').textContent = '';
+  updateProgress();
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Wire up inputs
+// ─────────────────────────────────────────────────────────────────────────────
+document.querySelectorAll('textarea').forEach(function(ta){
+  ta.addEventListener('input', function(){ autoGrow(ta); });
+});
+allTextFields().forEach(function(el){
+  if (el.closest('.members-grid') || el.closest('.checklist-item')) return;
+  el.addEventListener('input', debounceSave);
+});
+document.querySelectorAll('input[type="radio"]').forEach(function(el){
+  el.addEventListener('change', save);
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Init
+// ─────────────────────────────────────────────────────────────────────────────
+buildStars();
+buildScales();
+
+// Load from localStorage first for instant render
+var raw = loadRaw();
+if (!raw.members || !raw.members.length) {
+  addMember(); addMember(); addMember(); addMember(); addMember();
+} else {
+  load();
+}
+document.querySelectorAll('textarea').forEach(function(ta){ autoGrow(ta); });
+updateProgress();
+
+// Then check Firebase — wait a tick for the module script to finish
+setTimeout(function() {
+  fbConfigured = checkFbConfigured();
+
+  if (fbConfigured) {
+    // Show sync bar, hide setup warning
+    document.getElementById('sync-bar').style.display    = 'flex';
+    document.getElementById('setup-warning').style.display = 'none';
+
+    setSyncStatus('', 'Connecting…');
+
+    // Subscribe to real-time updates
+    window._fbListen(function(remoteData) {
+      if (!remoteData || remoteData._cleared) return;
+
+      isSyncing = true;   // block re-save echo
+      applyState(remoteData, { skipFocused: true });
+      updateProgress();
+      isSyncing = false;
+
+      setSyncStatus('live', 'Live — synced with your group');
+    });
+
+  } else {
+    // Keep showing the setup warning (already visible by default)
+    // localStorage-only mode works fine without further action
+  }
+}, 300);
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Ownership & filter system
+// ─────────────────────────────────────────────────────────────────────────────
+var OWNED_CARD_IDS = ['card-thesis', 'card-body-ideas', 'card-artwork', 'card-research', 'card-speculative', 'card-ratings', 'card-overall'];
+var MEMBER_COLORS  = ['#C4622D', '#2559A7', '#2D7A52', '#7C3AED', '#92600A'];
+var activeMemberIdx = -1; // index into members[] for "I am"
+var filterOn = false;
+
+function renderWhoPills() {
+  var container = document.getElementById('who-pills');
+  if (!container) return;
+  var namedMembers = members.filter(function(m){ return m.name.trim(); });
+  if (!namedMembers.length) {
+    container.innerHTML = '<span class="who-pill" style="color:var(--ink-4);font-style:italic">Add members in Group info first</span>';
+    return;
+  }
+  container.innerHTML = '';
+  namedMembers.forEach(function(m, i) {
+    var mi = members.indexOf(m); // real index for colour
+    var pill = document.createElement('button');
+    pill.className = 'who-pill' + (mi === activeMemberIdx ? ' active' : '');
+    pill.setAttribute('data-mi', mi);
+    pill.setAttribute('type', 'button');
+    pill.textContent = m.name;
+    pill.addEventListener('click', function() {
+      activeMemberIdx = (activeMemberIdx === mi) ? -1 : mi;
+      renderWhoPills();
+      applyFilter();
+    });
+    container.appendChild(pill);
+  });
+}
+
+function updateOwnerDropdowns() {
+  OWNED_CARD_IDS.forEach(function(cid) {
+    var sel = document.getElementById(cid + '-owner-sel');
+    if (!sel) return;
+    var cur = sel.value;
+    sel.innerHTML = '<option value="">+ Assign</option>';
+    members.forEach(function(m, mi) {
+      if (!m.name.trim()) return;
+      var o = document.createElement('option');
+      o.value = mi;
+      o.textContent = m.name;
+      if (String(mi) === String(cur)) o.selected = true;
+      sel.appendChild(o);
+    });
+    sel.value = cur;
+    refreshOwnerTag(cid);
+  });
+}
+
+function setCardOwner(cid, miStr) {
+  var card = document.getElementById(cid);
+  if (!card) return;
+  if (miStr === '' || miStr === undefined) {
+    card.removeAttribute('data-owner');
+    card.setAttribute('data-owner', '');
+  } else {
+    card.setAttribute('data-owner', miStr);
+  }
+  refreshOwnerTag(cid);
+  applyFilter();
+  save(); // persist ownership with the rest of the form state
+}
+
+function refreshOwnerTag(cid) {
+  var card = document.getElementById(cid);
+  var tag  = document.getElementById(cid + '-owner-tag');
+  var sel  = document.getElementById(cid + '-owner-sel');
+  if (!card || !tag || !sel) return;
+  var miStr = sel.value;
+  if (!miStr && miStr !== '0') {
+    tag.textContent = '+ Assign';
+    tag.style.background = ''; tag.style.borderColor = ''; tag.style.color = '';
+    card.setAttribute('data-owner', '');
+    return;
+  }
+  var mi = parseInt(miStr, 10);
+  var m = members[mi];
+  if (!m) return;
+  tag.textContent = m.name;
+  card.setAttribute('data-owner', miStr);
+}
+
+function applyFilter() {
+  var btn = document.getElementById('filter-toggle');
+  if (filterOn && activeMemberIdx >= 0) {
+    // Set CSS variable approach: add active class to body + override via data attr
+    document.body.classList.add('filter-on');
+    // We use a dynamic style tag to set the correct active index
+    var styleEl = document.getElementById('filter-style');
+    if (!styleEl) {
+      styleEl = document.createElement('style');
+      styleEl.id = 'filter-style';
+      document.head.appendChild(styleEl);
+    }
+    styleEl.textContent =
+      'body.filter-on .card[data-owner]:not([data-owner="' + activeMemberIdx + '"]):not([data-owner=""]) { opacity: .18; pointer-events: none; }' +
+      'body.filter-on .card[data-owner=""] { opacity: 1; pointer-events: auto; }';
+    if (btn) btn.classList.add('on');
+  } else {
+    document.body.classList.remove('filter-on');
+    if (btn) btn.classList.remove('on');
+  }
+}
+
+function toggleFilter() {
+  filterOn = !filterOn;
+  applyFilter();
+}
+
+// Collect ownership into form state
+var _origCollectState = collectState;
+collectState = function() {
+  var d = _origCollectState();
+  var ownership = {};
+  OWNED_CARD_IDS.forEach(function(cid) {
+    var card = document.getElementById(cid);
+    if (card) ownership[cid] = card.getAttribute('data-owner') || '';
+  });
+  d._ownership = ownership;
+  return d;
+};
+
+// Apply ownership from loaded state
+var _origApplyState = applyState;
+applyState = function(d, opts) {
+  _origApplyState(d, opts);
+  if (d && d._ownership) {
+    OWNED_CARD_IDS.forEach(function(cid) {
+      var val = d._ownership[cid];
+      if (val === undefined) return;
+      var card = document.getElementById(cid);
+      var sel  = document.getElementById(cid + '-owner-sel');
+      if (card) card.setAttribute('data-owner', val);
+      if (sel)  { sel.value = val; refreshOwnerTag(cid); }
+    });
+  }
+  // Rebuild who-pills and dropdowns whenever state is applied
+  setTimeout(function() {
+    renderWhoPills();
+    updateOwnerDropdowns();
+  }, 80);
+};
+
+// Hook into member changes so pills + dropdowns stay in sync
+var _origRenderMembers = renderMembers;
+renderMembers = function() {
+  _origRenderMembers();
+  renderWhoPills();
+  updateOwnerDropdowns();
+};
+
+// Init ownership UI once DOM is ready
+setTimeout(function() {
+  renderWhoPills();
+  updateOwnerDropdowns();
+}, 400);
+
+</script>
+</body>
+</html>

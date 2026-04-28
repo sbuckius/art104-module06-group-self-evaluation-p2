@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Media Arts — Group Self-Evaluations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Firebase SDK — reads live completion data for each group -->
+<script type="module">
+  import { initializeApp }   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, onSnapshot }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey:            "AIzaSyBtGtZ9vkDCraCUdwKgDovmxqqysVrX05w",
+    authDomain:        "digitalselfquilt.firebaseapp.com",
+    databaseURL:       "https://digitalselfquilt-default-rtdb.firebaseio.com",
+    projectId:         "digitalselfquilt",
+    storageBucket:     "digitalselfquilt.firebasestorage.app",
+    messagingSenderId: "902474023892",
+    appId:             "1:902474023892:web:1258a3d078c7c2ee734c41",
+    measurementId:     "G-VQJDG5X9T2"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getFirestore(app);
+
+  // Listen to the whole groups collection so all cards update live
+  onSnapshot(collection(db, "groups"), (snap) => {
+    snap.forEach((doc) => {
+      const groupId = doc.id;   // e.g. "group-1"
+      const data    = doc.data();
+
+      // Count checklist items that are checked
+      const cl = data.checklist || {};
+      const total   = Object.keys(cl).length;
+      const checked = Object.values(cl).filter(v => v && v.checked).length;
+      const pct     = total > 0 ? Math.round(checked / total * 100) : 0;
+
+      // Pull group name and paper title if entered
+      const groupName  = data['group-name']  || '';
+      const paperTitle = data['paper-title'] || '';
+
+      // Update the card
+      const card = document.getElementById('card-' + groupId);
+      if (!card) return;
+
+      const bar    = card.querySelector('.prog-fill');
+      const label  = card.querySelector('.prog-label');
+      const gtitle = card.querySelector('.group-custom-name');
+      const ptitle = card.querySelector('.paper-title');
+      const dot    = card.querySelector('.live-dot');
+
+      if (bar)    bar.style.width = pct + '%';
+      if (label)  label.textContent = pct + '% complete';
+      if (gtitle) gtitle.textContent = groupName  || card.querySelector('.group-default-name').textContent;
+      if (ptitle) ptitle.textContent = paperTitle || 'No title yet';
+      if (dot)    dot.classList.add('on');
+
+      // Fade dot after a moment
+      setTimeout(() => { if (dot) dot.classList.remove('on'); }, 2000);
+    });
+  }, (err) => {
+    console.warn('Firebase listen error:', err);
+  });
+</script>
+
+<style>
+/* ─── Reset & base ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+
+:root {
+  --ink:      #1A1814;
+  --ink-2:    #3D3A35;
+  --ink-3:    #706D67;
+  --ink-4:    #A09D97;
+  --bg:       #F2EFE9;
+  --bg-2:     #EAE6DE;
+  --bg-3:     #DDD8CE;
+  --surface:  #FAFAF6;
+  --rule:     #D4D0C8;
+  --accent:   #C4622D;
+  --green:    #2D7A52;
+  --green-bg: #E6F4ED;
+  --shadow:   0 2px 6px rgba(26,24,20,.06), 0 8px 24px rgba(26,24,20,.06);
+  --radius:   14px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Instrument Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* grain */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+}
+
+/* ─── Header ─── */
+.site-header {
+  position: relative; z-index: 1;
+  background: var(--ink);
+  padding: 4rem 2rem 3.5rem;
+  overflow: hidden;
+}
+
+/* large decorative text */
+.site-header::after {
+  content: 'DMA';
+  position: absolute; right: -1rem; bottom: -1.5rem;
+  font-family: 'Fraunces', serif;
+  font-size: clamp(7rem, 18vw, 14rem);
+  font-weight: 700; line-height: 1;
+  color: rgba(255,255,255,.04);
+  pointer-events: none; letter-spacing: -.04em;
+}
+
+/* warm radial glow */
+.site-header::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 70% 40%, rgba(196,98,45,.22) 0%, transparent 60%);
+}
+
+.header-inner {
+  max-width: 860px; margin: 0 auto;
+  position: relative; z-index: 1;
+}
+
+.eyebrow {
+  font-size: .68rem; font-weight: 600; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: .75rem;
+}
+
+.site-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700; letter-spacing: -.03em; line-height: 1.05;
+  color: var(--bg); margin-bottom: .75rem;
+}
+
+.site-sub {
+  font-size: .9rem; color: #A09D97; max-width: 480px; line-height: 1.65;
+}
+
+/* horizontal rule accent */
+.header-rule {
+  width: 40px; height: 2px; background: var(--accent);
+  margin: 1.25rem 0; border-radius: 1px;
+}
+
+/* ─── Main ─── */
+.main {
+  max-width: 860px; margin: 0 auto;
+  padding: 3rem 1.5rem 6rem;
+  position: relative; z-index: 1;
+}
+
+/* section label */
+.section-label {
+  font-size: .68rem; font-weight: 600; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--ink-4);
+  margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: .75rem;
+}
+.section-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--rule);
+}
+
+/* ─── Group grid ─── */
+.group-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+/* ─── Group card ─── */
+.group-card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  display: flex; flex-direction: column;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+  animation: riseUp .5s ease both;
+}
+
+.group-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(26,24,20,.1), 0 14px 36px rgba(26,24,20,.1);
+  border-color: var(--accent);
+}
+.group-card:active { transform: translateY(-1px); }
+
+@keyframes riseUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.group-card:nth-child(1){animation-delay:.04s}
+.group-card:nth-child(2){animation-delay:.08s}
+.group-card:nth-child(3){animation-delay:.12s}
+.group-card:nth-child(4){animation-delay:.16s}
+.group-card:nth-child(5){animation-delay:.20s}
+.group-card:nth-child(6){animation-delay:.24s}
+
+/* colour strip at top */
+.card-strip {
+  height: 4px;
+  background: var(--rule);
+  transition: background .3s;
+}
+.group-card:nth-child(1) .card-strip { background: #C4622D; }
+.group-card:nth-child(2) .card-strip { background: #2559A7; }
+.group-card:nth-child(3) .card-strip { background: #2D7A52; }
+.group-card:nth-child(4) .card-strip { background: #7C3AED; }
+.group-card:nth-child(5) .card-strip { background: #92600A; }
+.group-card:nth-child(6) .card-strip { background: #0F766E; }
+
+.card-body-inner {
+  padding: 1.1rem 1.2rem 1rem;
+  flex: 1; display: flex; flex-direction: column; gap: .6rem;
+}
+
+.card-top {
+  display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem;
+}
+
+.group-number {
+  font-size: .65rem; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--ink-4);
+}
+
+.live-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green); opacity: 0;
+  transition: opacity .4s; flex-shrink: 0; margin-top: 2px;
+  box-shadow: 0 0 0 2px rgba(45,122,82,.2);
+}
+.live-dot.on { opacity: 1; }
+
+.group-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem; font-weight: 500;
+  color: var(--ink); letter-spacing: -.015em; line-height: 1.2;
+}
+
+.paper-title {
+  font-size: .78rem; color: var(--ink-3); line-height: 1.45;
+  font-style: italic;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* progress */
+.prog-wrap { margin-top: auto; padding-top: .5rem; }
+.prog-track {
+  height: 3px; background: var(--bg-3);
+  border-radius: 2px; overflow: hidden; margin-bottom: .3rem;
+}
+.prog-fill {
+  height: 100%; width: 0%; border-radius: 2px;
+  background: var(--green);
+  transition: width .6s cubic-bezier(.4,0,.2,1);
+}
+.prog-label {
+  font-size: .7rem; color: var(--ink-4); letter-spacing: .03em;
+}
+
+/* arrow */
+.card-arrow {
+  padding: .6rem 1.2rem .8rem;
+  display: flex; justify-content: flex-end;
+  color: var(--ink-4); font-size: .8rem;
+  transition: color .15s;
+}
+.group-card:hover .card-arrow { color: var(--accent); }
+.card-arrow svg { transition: transform .2s; }
+.group-card:hover .card-arrow svg { transform: translateX(3px); }
+
+/* ─── Info box ─── */
+.info-box {
+  background: var(--surface);
+  border: 1px solid var(--rule); border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  font-size: .82rem; color: var(--ink-3); line-height: 1.7;
+  box-shadow: var(--shadow);
+}
+.info-box strong { color: var(--ink-2); font-weight: 600; }
+.info-box p + p { margin-top: .5rem; }
+
+/* ─── Footer ─── */
+.site-footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--rule);
+  padding: 1.5rem 2rem;
+  text-align: center;
+  font-size: .75rem; color: var(--ink-4);
+  letter-spacing: .04em;
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <p class="eyebrow">Digital Media Arts</p>
+    <h1 class="site-title">Fleshed-Out Project<br>Self-Evaluations</h1>
+    <div class="header-rule"></div>
+    <p class="site-sub">Select your group below to open your shared self-evaluation and draft paper checklist. Changes sync live across all group members.</p>
+  </div>
+</header>
+
+<main class="main">
+
+  <p class="section-label">Select your group</p>
+
+  <div class="group-grid">
+
+    <a class="group-card" href="group-1.html" id="card-group-1">
+      <div class="card-strip"></div>
+      <div class="card-body-inner">
+        <div class="card-top">
+          <span class="group-number">Group 1</span>
+          <span class="live-dot" title="Recently active"></span>
+        </div>
+        <div class="group-name">
+          <span class="group-default-name">Group 1</span>
+          <span class="group-custom-name" style="display:block"></span>
+        </div>
+        <div class="paper-title">No title yet</div>
+        <div class="prog-wrap">
+          <div class="prog-track"><div class="prog-fill"></div></div>
+          <div class="prog-label">0% complete</div>
+        </div>
+      </div>
+      <div class="card-arrow">
+        Open &nbsp;
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </a>
+
+    <a class="group-card" href="group-2.html" id="card-group-2">
+      <div class="card-strip"></div>
+      <div class="card-body-inner">
+        <div class="card-top">
+          <span class="group-number">Group 2</span>
+          <span class="live-dot" title="Recently active"></span>
+        </div>
+        <div class="group-name">
+          <span class="group-default-name">Group 2</span>
+          <span class="group-custom-name" style="display:block"></span>
+        </div>
+        <div class="paper-title">No title yet</div>
+        <div class="prog-wrap">
+          <div class="prog-track"><div class="prog-fill"></div></div>
+          <div class="prog-label">0% complete</div>
+        </div>
+      </div>
+      <div class="card-arrow">
+        Open &nbsp;
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </a>
+
+    <a class="group-card" href="group-3.html" id="card-group-3">
+      <div class="card-strip"></div>
+      <div class="card-body-inner">
+        <div class="card-top">
+          <span class="group-number">Group 3</span>
+          <span class="live-dot" title="Recently active"></span>
+        </div>
+        <div class="group-name">
+          <span class="group-default-name">Group 3</span>
+          <span class="group-custom-name" style="display:block"></span>
+        </div>
+        <div class="paper-title">No title yet</div>
+        <div class="prog-wrap">
+          <div class="prog-track"><div class="prog-fill"></div></div>
+          <div class="prog-label">0% complete</div>
+        </div>
+      </div>
+      <div class="card-arrow">
+        Open &nbsp;
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </a>
+
+    <a class="group-card" href="group-4.html" id="card-group-4">
+      <div class="card-strip"></div>
+      <div class="card-body-inner">
+        <div class="card-top">
+          <span class="group-number">Group 4</span>
+          <span class="live-dot" title="Recently active"></span>
+        </div>
+        <div class="group-name">
+          <span class="group-default-name">Group 4</span>
+          <span class="group-custom-name" style="display:block"></span>
+        </div>
+        <div class="paper-title">No title yet</div>
+        <div class="prog-wrap">
+          <div class="prog-track"><div class="prog-fill"></div></div>
+          <div class="prog-label">0% complete</div>
+        </div>
+      </div>
+      <div class="card-arrow">
+        Open &nbsp;
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </a>
+
+    <a class="group-card" href="group-5.html" id="card-group-5">
+      <div class="card-strip"></div>
+      <div class="card-body-inner">
+        <div class="card-top">
+          <span class="group-number">Group 5</span>
+          <span class="live-dot" title="Recently active"></span>
+        </div>
+        <div class="group-name">
+          <span class="group-default-name">Group 5</span>
+          <span class="group-custom-name" style="display:block"></span>
+        </div>
+        <div class="paper-title">No title yet</div>
+        <div class="prog-wrap">
+          <div class="prog-track"><div class="prog-fill"></div></div>
+          <div class="prog-label">0% complete</div>
+        </div>
+      </div>
+      <div class="card-arrow">
+        Open &nbsp;
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </a>
+
+    <a class="group-card" href="group-6.html" id="card-group-6">
+      <div class="card-strip"></div>
+      <div class="card-body-inner">
+        <div class="card-top">
+          <span class="group-number">Group 6</span>
+          <span class="live-dot" title="Recently active"></span>
+        </div>
+        <div class="group-name">
+          <span class="group-default-name">Group 6</span>
+          <span class="group-custom-name" style="display:block"></span>
+        </div>
+        <div class="paper-title">No title yet</div>
+        <div class="prog-wrap">
+          <div class="prog-track"><div class="prog-fill"></div></div>
+          <div class="prog-label">0% complete</div>
+        </div>
+      </div>
+      <div class="card-arrow">
+        Open &nbsp;
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="info-box">
+    <p><strong>Each group has their own page.</strong> Click your group card above to open your shared self-evaluation. All group members can work on the same page at the same time — changes sync live.</p>
+    <p>Progress bars update automatically as your group checks off tasks in the checklist. The green dot pulses whenever someone in your group saves a change.</p>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  Digital Media Arts &nbsp;·&nbsp; Fleshed-Out Project
+</footer>
+
+</body>
+</html>
