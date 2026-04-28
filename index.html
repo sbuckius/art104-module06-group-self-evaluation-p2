@@ -230,65 +230,16 @@ body::before {
 .group-card:nth-child(6) .card-strip { background: #0F766E; }
 
 .card-body-inner {
-  padding: 1.1rem 1.2rem 1rem;
-  flex: 1; display: flex; flex-direction: column; gap: .6rem;
+  padding: 1.1rem 1.2rem 1.1rem;
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
-
-.card-top {
-  display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem;
-}
-
-.group-number {
-  font-size: .65rem; font-weight: 600; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--ink-4);
-}
-
-.live-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--green); opacity: 0;
-  transition: opacity .4s; flex-shrink: 0; margin-top: 2px;
-  box-shadow: 0 0 0 2px rgba(45,122,82,.2);
-}
-.live-dot.on { opacity: 1; }
 
 .group-name {
   font-family: 'Fraunces', serif;
-  font-size: 1.1rem; font-weight: 500;
+  font-size: 1.15rem; font-weight: 500;
   color: var(--ink); letter-spacing: -.015em; line-height: 1.2;
+  text-align: center; padding: .25rem 0;
 }
-
-.paper-title {
-  font-size: .78rem; color: var(--ink-3); line-height: 1.45;
-  font-style: italic;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* progress */
-.prog-wrap { margin-top: auto; padding-top: .5rem; }
-.prog-track {
-  height: 3px; background: var(--bg-3);
-  border-radius: 2px; overflow: hidden; margin-bottom: .3rem;
-}
-.prog-fill {
-  height: 100%; width: 0%; border-radius: 2px;
-  background: var(--green);
-  transition: width .6s cubic-bezier(.4,0,.2,1);
-}
-.prog-label {
-  font-size: .7rem; color: var(--ink-4); letter-spacing: .03em;
-}
-
-/* arrow */
-.card-arrow {
-  padding: .6rem 1.2rem .8rem;
-  display: flex; justify-content: flex-end;
-  color: var(--ink-4); font-size: .8rem;
-  transition: color .15s;
-}
-.group-card:hover .card-arrow { color: var(--accent); }
-.card-arrow svg { transition: transform .2s; }
-.group-card:hover .card-arrow svg { transform: translateX(3px); }
 
 /* ─── Info box ─── */
 .info-box {
@@ -329,153 +280,45 @@ body::before {
 
   <div class="group-grid">
 
-    <a class="group-card" href="group-1.html" id="card-group-1">
+        <a class="group-card" href="group-1.html" id="card-group-1">
       <div class="card-strip"></div>
       <div class="card-body-inner">
-        <div class="card-top">
-          <span class="group-number">Group 1</span>
-          <span class="live-dot" title="Recently active"></span>
-        </div>
-        <div class="group-name">
-          <span class="group-default-name">Group 1</span>
-          <span class="group-custom-name" style="display:block"></span>
-        </div>
-        <div class="paper-title">No title yet</div>
-        <div class="prog-wrap">
-          <div class="prog-track"><div class="prog-fill"></div></div>
-          <div class="prog-label">0% complete</div>
-        </div>
-      </div>
-      <div class="card-arrow">
-        Open &nbsp;
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <div class="group-name">Group 1</div>
       </div>
     </a>
 
-    <a class="group-card" href="group-2.html" id="card-group-2">
+        <a class="group-card" href="group-2.html" id="card-group-2">
       <div class="card-strip"></div>
       <div class="card-body-inner">
-        <div class="card-top">
-          <span class="group-number">Group 2</span>
-          <span class="live-dot" title="Recently active"></span>
-        </div>
-        <div class="group-name">
-          <span class="group-default-name">Group 2</span>
-          <span class="group-custom-name" style="display:block"></span>
-        </div>
-        <div class="paper-title">No title yet</div>
-        <div class="prog-wrap">
-          <div class="prog-track"><div class="prog-fill"></div></div>
-          <div class="prog-label">0% complete</div>
-        </div>
-      </div>
-      <div class="card-arrow">
-        Open &nbsp;
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <div class="group-name">Group 2</div>
       </div>
     </a>
 
-    <a class="group-card" href="group-3.html" id="card-group-3">
+        <a class="group-card" href="group-3.html" id="card-group-3">
       <div class="card-strip"></div>
       <div class="card-body-inner">
-        <div class="card-top">
-          <span class="group-number">Group 3</span>
-          <span class="live-dot" title="Recently active"></span>
-        </div>
-        <div class="group-name">
-          <span class="group-default-name">Group 3</span>
-          <span class="group-custom-name" style="display:block"></span>
-        </div>
-        <div class="paper-title">No title yet</div>
-        <div class="prog-wrap">
-          <div class="prog-track"><div class="prog-fill"></div></div>
-          <div class="prog-label">0% complete</div>
-        </div>
-      </div>
-      <div class="card-arrow">
-        Open &nbsp;
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <div class="group-name">Group 3</div>
       </div>
     </a>
 
-    <a class="group-card" href="group-4.html" id="card-group-4">
+        <a class="group-card" href="group-4.html" id="card-group-4">
       <div class="card-strip"></div>
       <div class="card-body-inner">
-        <div class="card-top">
-          <span class="group-number">Group 4</span>
-          <span class="live-dot" title="Recently active"></span>
-        </div>
-        <div class="group-name">
-          <span class="group-default-name">Group 4</span>
-          <span class="group-custom-name" style="display:block"></span>
-        </div>
-        <div class="paper-title">No title yet</div>
-        <div class="prog-wrap">
-          <div class="prog-track"><div class="prog-fill"></div></div>
-          <div class="prog-label">0% complete</div>
-        </div>
-      </div>
-      <div class="card-arrow">
-        Open &nbsp;
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <div class="group-name">Group 4</div>
       </div>
     </a>
 
-    <a class="group-card" href="group-5.html" id="card-group-5">
+        <a class="group-card" href="group-5.html" id="card-group-5">
       <div class="card-strip"></div>
       <div class="card-body-inner">
-        <div class="card-top">
-          <span class="group-number">Group 5</span>
-          <span class="live-dot" title="Recently active"></span>
-        </div>
-        <div class="group-name">
-          <span class="group-default-name">Group 5</span>
-          <span class="group-custom-name" style="display:block"></span>
-        </div>
-        <div class="paper-title">No title yet</div>
-        <div class="prog-wrap">
-          <div class="prog-track"><div class="prog-fill"></div></div>
-          <div class="prog-label">0% complete</div>
-        </div>
-      </div>
-      <div class="card-arrow">
-        Open &nbsp;
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <div class="group-name">Group 5</div>
       </div>
     </a>
 
-    <a class="group-card" href="group-6.html" id="card-group-6">
+        <a class="group-card" href="group-6.html" id="card-group-6">
       <div class="card-strip"></div>
       <div class="card-body-inner">
-        <div class="card-top">
-          <span class="group-number">Group 6</span>
-          <span class="live-dot" title="Recently active"></span>
-        </div>
-        <div class="group-name">
-          <span class="group-default-name">Group 6</span>
-          <span class="group-custom-name" style="display:block"></span>
-        </div>
-        <div class="paper-title">No title yet</div>
-        <div class="prog-wrap">
-          <div class="prog-track"><div class="prog-fill"></div></div>
-          <div class="prog-label">0% complete</div>
-        </div>
-      </div>
-      <div class="card-arrow">
-        Open &nbsp;
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <div class="group-name">Group 6</div>
       </div>
     </a>
 
