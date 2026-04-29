@@ -6,9 +6,7 @@
 <title>Group 1 Self-Evaluation &amp; Draft Checklist</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap"></noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap">
 <style>
 :root {
   --bg:         #F2EFE9;
@@ -49,7 +47,6 @@ body {
   min-height: 100vh;
 }
 
-/* grain overlay */
 body::before {
   content: '';
   position: fixed; inset: 0;
@@ -268,8 +265,6 @@ select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns
 .check-due input[type="date"] { font-size: .78rem; min-width: 130px; padding: .3rem .6rem; }
 .check-status select { font-size: .78rem; min-width: 110px; padding: .3rem .6rem; padding-right: 1.75rem; }
 
-/* status colour chips */
-.check-status select option[value="not-started"] { color: var(--ink-3); }
 .check-status select[data-status="in-progress"] { border-color: #E8A020; color: var(--amber); background-color: var(--amber-bg); }
 .check-status select[data-status="done"]        { border-color: var(--green); color: var(--green); background-color: var(--green-bg); }
 .check-status select[data-status="blocked"]     { border-color: #C4622D; color: var(--accent); background-color: var(--accent-bg); }
@@ -399,7 +394,6 @@ select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns
   .rating-row { break-inside:avoid; }
   .ratings-table { break-inside:auto; }
 
-  /* Fix: member number circles also need to stay visible */
   .member-row .member-num { display:flex !important; }
 }
 
@@ -473,7 +467,6 @@ select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns
   .check-assignee, .check-due, .check-status, .check-pres { display: none; }
 }
 
-/* print updates */
 @media print {
   .pres-box { width:12pt; height:12pt; border:1.5pt solid #AABFE8; border-radius:3pt; background:#E8EFFE !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .pres-box.checked { border-color:#2559A7 !important; background:#2559A7 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
@@ -502,24 +495,11 @@ select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns
   font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
   background: var(--blue); color: #fff; border-radius: 20px; padding: 2px 8px;
 }
-.setup-warning {
-  display: flex; gap: .75rem; align-items: flex-start;
-  background: #FFF8E6; border: 1px solid #FDE68A; border-left: 3px solid #F59E0B;
-  border-radius: var(--radius-sm); padding: .875rem 1rem; margin-bottom: 1.25rem;
-}
-.setup-warning p { font-size: .8rem; color: #92600A; line-height: 1.55; }
-.setup-warning strong { font-weight: 600; }
-.setup-warning code {
-  font-family: monospace; font-size: .78rem;
-  background: rgba(0,0,0,.06); padding: 1px 5px; border-radius: 3px;
-}
 @media print {
-  .sync-bar, .setup-warning { display: none !important; }
+  .sync-bar { display: none !important; }
 }
 
 /* ══ Ownership & filter system ══ */
-
-/* 5 member colour palette — border + tinted card-head */
 :root {
   --m1: #C4622D; --m1-bg: #FAEEE6; --m1-rule: #F0C4AC;
   --m2: #2559A7; --m2-bg: #E8EFFE; --m2-rule: #AABFE8;
@@ -528,7 +508,6 @@ select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns
   --m5: #92600A; --m5-bg: #FEF6E6; --m5-rule: #F5D898;
 }
 
-/* Active member picker bar */
 .who-am-i-bar {
   display: flex; align-items: center; gap: .75rem; flex-wrap: wrap;
   background: var(--surface); border: 1px solid var(--rule);
@@ -561,10 +540,8 @@ select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns
 .filter-toggle.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .filter-toggle .ft-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
 
-/* Card ownership states */
 .card[data-owner] { transition: opacity .25s, border-color .2s; }
 
-/* Owner colour applied to card border + card-head bg */
 .card[data-owner="0"] { border-color: var(--m1-rule); }
 .card[data-owner="0"] .card-head { background: var(--m1-bg); border-bottom-color: var(--m1-rule); }
 .card[data-owner="0"] .owner-tag { background: var(--m1-bg); border-color: var(--m1); color: var(--m1); }
@@ -585,7 +562,6 @@ select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns
 .card[data-owner="4"] .card-head { background: var(--m5-bg); border-bottom-color: var(--m5-rule); }
 .card[data-owner="4"] .owner-tag { background: var(--m5-bg); border-color: var(--m5); color: var(--m5); }
 
-/* Owner tag pill inside card-head */
 .owner-tag {
   font-size: .65rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
   background: var(--bg-3); color: var(--ink-3); border: 1px solid var(--rule);
@@ -597,17 +573,12 @@ select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns
   position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; font-size: .7rem;
 }
 
-/* Filter mode: dim cards not owned by active member */
 body.filter-on .card[data-owner]:not([data-owner="__ACTIVE__"]) {
   opacity: .25; pointer-events: none;
 }
-/* Cards with no owner are always visible in filter mode */
 body.filter-on .card:not([data-owner]) { opacity: 1; pointer-events: auto; }
-
-/* Unowned cards get a neutral dim in filter mode */
 body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
 
-/* print: don't show ownership chrome */
 @media print {
   .who-am-i-bar { display: none !important; }
   .owner-tag { display: none !important; }
@@ -616,8 +587,10 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
 }
 </style>
 
-<!-- Firebase SDK -->
-<script type="module" defer>
+<!-- Firebase SDK — *** FIX: removed redundant "defer" (modules already defer) ***
+     and replaced hard setTimeout with a readiness poll so the page never
+     gets stuck waiting for Firebase to initialise. -->
+<script type="module">
   import { initializeApp }        from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getFirestore, doc, setDoc, onSnapshot, serverTimestamp }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -635,8 +608,8 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
     measurementId:     "G-VQJDG5X9T2"
   };
 
-  const app = initializeApp(firebaseConfig);
-  const db  = getFirestore(app);
+  const app    = initializeApp(firebaseConfig);
+  const db     = getFirestore(app);
   const docRef = doc(db, "groups", GROUP_ID);
 
   window._fbSave = async function(data) {
@@ -688,8 +661,6 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
       <span id="save-label"></span>
     </div>
   </div>
-
-  <div class="setup-warning" id="setup-warning" style="display:none"></div>
 
   <div class="sync-bar" id="sync-bar" style="display:none">
     <div class="sync-dot" id="sync-dot"></div>
@@ -905,7 +876,7 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
             What needs to improve
           </div>
-          <textarea id="imp-themes" placeholder="Which theme is weakest and what would fix it? (e.g. 'Theme 2 covers too much — we need to narrow it to just X' or 'Theme 3 doesn't connect to the speculative artwork yet — we need to add a link')"></textarea>
+          <textarea id="imp-themes" placeholder="Which theme is weakest and what would fix it?"></textarea>
         </div>
       </div>
       <div class="field">
@@ -925,7 +896,7 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
             What needs to improve
           </div>
-          <textarea id="imp-cohesion" placeholder="Which theme is most scattered and what would bring it together? (e.g. 'Remove [source] from Theme 1 — it belongs in Theme 3' or 'The two artworks in Theme 2 need a clearer connecting idea')"></textarea>
+          <textarea id="imp-cohesion" placeholder="Which theme is most scattered and what would bring it together?"></textarea>
         </div>
       </div>
     </div>
@@ -965,7 +936,7 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
             What needs to improve
           </div>
-          <textarea id="imp-analysis" placeholder="Which artwork needs deeper analysis and what would that look like? (e.g. 'For [artwork] we only describe the topic — we need to describe the actual visual elements: composition, color, scale, material, and what those choices communicate')"></textarea>
+          <textarea id="imp-analysis" placeholder="Which artwork needs deeper analysis and what would that look like?"></textarea>
         </div>
       </div>
       <div class="field">
@@ -983,7 +954,7 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
             What needs to improve
           </div>
-          <textarea id="imp-artwork-spec" placeholder="For any artwork that doesn't connect clearly, what would fix it? (e.g. 'For [artwork] we need a sentence explaining how it directly informs the speculative piece' or 'Replace [artwork] with one that uses the same medium as our proposal')"></textarea>
+          <textarea id="imp-artwork-spec" placeholder="For any artwork that doesn't connect clearly, what would fix it?"></textarea>
         </div>
       </div>
     </div>
@@ -999,7 +970,7 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
     <div class="card-body">
       <div class="field">
         <label class="field-label">Source requirements</label>
-        <p class="field-hint">You need at least 3 sources, with at least 2 peer-reviewed. At least one non-art source must come from outside the art world (science, technology, sociology, psychology, etc.).</p>
+        <p class="field-hint">You need at least 3 sources, with at least 2 peer-reviewed. At least one non-art source must come from outside the art world.</p>
         <div class="radio-row">
           <label class="radio-pill green"><input type="radio" name="sources-req" value="met">Requirements met</label>
           <label class="radio-pill"><input type="radio" name="sources-req" value="partial">Partially met</label>
@@ -1011,12 +982,12 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
             What needs to improve
           </div>
-          <textarea id="imp-sources" placeholder="What kind of source is missing and where will you look? (e.g. 'We need one more peer-reviewed source on [topic] — search JSTOR or Google Scholar' or 'Our outside-field source needs to come from a non-art discipline — look for cognitive science research related to our theme')"></textarea>
+          <textarea id="imp-sources" placeholder="What kind of source is missing and where will you look?"></textarea>
         </div>
       </div>
       <div class="field">
         <label class="field-label">How well integrated are your sources?</label>
-        <p class="field-hint">Are sources woven into your argument — or just dropped in? Does each source connect clearly to the ideas in its section?</p>
+        <p class="field-hint">Are sources woven into your argument — or just dropped in?</p>
         <div class="scale-row" id="sc-sources">
           <button class="scale-btn" data-v="1">1</button>
           <button class="scale-btn" data-v="2">2</button>
@@ -1030,7 +1001,7 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
             What needs to improve
           </div>
-          <textarea id="imp-sources-int" placeholder="Which source is least integrated and what would fix it? (e.g. 'Source X is cited but we never explain what it argues — add a sentence summarising its claim and another connecting it to our theme')"></textarea>
+          <textarea id="imp-sources-int" placeholder="Which source is least integrated and what would fix it?"></textarea>
         </div>
       </div>
       <div class="field">
@@ -1046,7 +1017,7 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
             What needs to improve
           </div>
-          <textarea id="imp-citations" placeholder="List the specific citation issues and who will fix them. (e.g. 'In-text citations are missing page numbers for direct quotes' or 'Reference list entries for websites are missing access dates')"></textarea>
+          <textarea id="imp-citations" placeholder="List the specific citation issues and who will fix them."></textarea>
         </div>
       </div>
     </div>
@@ -1073,25 +1044,24 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
             What needs to improve
           </div>
-          <textarea id="imp-spec" placeholder="What needs to be developed further? (e.g. 'We need to describe what the viewer actually experiences' or 'We haven't explained which technology it uses or how it works' or 'The connection to the thesis isn't explicit yet')"></textarea>
+          <textarea id="imp-spec" placeholder="What needs to be developed further?"></textarea>
         </div>
       </div>
       <div class="field">
         <label class="field-label">Do all three themes connect back to the speculative artwork?</label>
-        <p class="field-hint">Each theme should directly support or inform your speculative piece — not just relate to the other artworks discussed.</p>
         <div class="radio-row">
           <label class="radio-pill green"><input type="radio" name="themes-spec" value="all">All three connect</label>
           <label class="radio-pill"><input type="radio" name="themes-spec" value="two">Two connect</label>
           <label class="radio-pill"><input type="radio" name="themes-spec" value="one">Only one</label>
           <label class="radio-pill"><input type="radio" name="themes-spec" value="none">Not yet</label>
         </div>
-        <textarea id="q-themes-spec" placeholder="Go through each theme. For each one, describe its connection to the speculative piece. Which feels least connected?"></textarea>
+        <textarea id="q-themes-spec" placeholder="Go through each theme. For each one, describe its connection to the speculative piece."></textarea>
         <div class="improve-block">
           <div class="improve-label">
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
             What needs to improve
           </div>
-          <textarea id="imp-themes-spec" placeholder="For any theme that doesn't connect to the speculative piece, what would fix it? (e.g. 'Add a closing paragraph to Theme 2 explaining how the ideas in it directly shaped a design decision in the speculative piece')"></textarea>
+          <textarea id="imp-themes-spec" placeholder="For any theme that doesn't connect to the speculative piece, what would fix it?"></textarea>
         </div>
       </div>
       <div class="field">
@@ -1107,7 +1077,7 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.5L8.3 5h4L9.5 7.2l1.3 4L7 9 3.2 11.2l1.3-4L1.7 5h4L7 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
             What needs to improve
           </div>
-          <textarea id="imp-sketches" placeholder="Who still needs to add sketches and what should they show? (e.g. 'Member X needs 2 more sketches — one showing a top-down view and one showing a user interaction moment')"></textarea>
+          <textarea id="imp-sketches" placeholder="Who still needs to add sketches and what should they show?"></textarea>
         </div>
       </div>
     </div>
@@ -1193,7 +1163,7 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
         </div>
         <div class="checklist-item" data-id="intro-thesis">
           <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Finalize and write the thesis statement</div><div class="check-subtext">A specific, arguable claim that tells the reader what the paper will argue and why it matters — not just a topic statement</div></div>
+          <div><div class="check-label">Finalize and write the thesis statement</div><div class="check-subtext">A specific, arguable claim that tells the reader what the paper will argue and why it matters</div></div>
           <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
           <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
           <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
@@ -1225,466 +1195,74 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
         </div>
 
         <div class="checklist-group-label">Theme 1</div>
-        <div class="checklist-item" data-id="t1-topic">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Write topic sentence and section intro</div><div class="check-subtext">State the theme in one clear sentence; explain how it connects to the speculative artwork before diving into examples</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="t1-topic-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Slide or spoken intro establishes Theme 1's argument and its link to the speculative artwork</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="t1-spec-link">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Write speculative artwork connection (Theme 1)</div><div class="check-subtext">Explicitly state how this theme directly informs or shapes the speculative artwork — not just how it relates to the topic</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="t1-spec-link-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: The connection between Theme 1 and the speculative artwork is made explicit on a slide or in spoken delivery</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="t1-artwork">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Write artist + artwork analysis (Theme 1)</div><div class="check-subtext">Describe concept, content, digital media, materials, and formal elements — all in service of showing what this artwork shares with the speculative piece in idea, form, or approach</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="t1-artwork-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Artwork is shown with at least one image; its connection to the theme and speculative artwork is explained</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="t1-article">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Integrate article (Theme 1)</div><div class="check-subtext">Source from outside the artworld — science, technology, sociology, psychology, history, etc. Explain what it argues and why that matters for the speculative artwork specifically. Must be peer-reviewed if this is one of your 2 required peer-reviewed sources</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="t1-article-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Article is cited in the presentation and its argument is briefly summarized for the audience</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="t1-personal">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Write personal connections (Theme 1)</div><div class="check-subtext">How does this theme connect to the group's lived experiences, passions, opinions, and interests? Why does it matter to you as people — not just as students?</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="t1-personal-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Personal connection to Theme 1 is spoken in the presentation — not just read from slides</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
+        <div class="checklist-item" data-id="t1-topic"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Write topic sentence and section intro</div><div class="check-subtext">State the theme in one clear sentence; explain how it connects to the speculative artwork before diving into examples</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="t1-topic-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Slide or spoken intro establishes Theme 1's argument and its link to the speculative artwork</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="t1-spec-link"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Write speculative artwork connection (Theme 1)</div><div class="check-subtext">Explicitly state how this theme directly informs or shapes the speculative artwork</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="t1-spec-link-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: The connection between Theme 1 and the speculative artwork is made explicit</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="t1-artwork"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Write artist + artwork analysis (Theme 1)</div><div class="check-subtext">Describe concept, content, digital media, materials, and formal elements — in service of showing what this artwork shares with the speculative piece</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="t1-artwork-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Artwork is shown with at least one image; its connection to the theme and speculative artwork is explained</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="t1-article"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Integrate article (Theme 1)</div><div class="check-subtext">Source from outside the artworld. Explain what it argues and why that matters for the speculative artwork specifically</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="t1-article-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Article is cited and its argument is briefly summarized for the audience</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="t1-personal"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Write personal connections (Theme 1)</div><div class="check-subtext">How does this theme connect to the group's lived experiences, passions, opinions, and interests?</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="t1-personal-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Personal connection to Theme 1 is spoken in the presentation — not just read from slides</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
 
         <div class="checklist-group-label">Theme 2</div>
-        <div class="checklist-item" data-id="t2-topic">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Write topic sentence and section intro</div><div class="check-subtext">State the theme in one clear sentence; explain how it connects to the speculative artwork before diving into examples</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="t2-topic-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Slide or spoken intro establishes Theme 2's argument and its link to the speculative artwork</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="t2-spec-link">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Write speculative artwork connection (Theme 2)</div><div class="check-subtext">Explicitly state how this theme directly informs or shapes the speculative artwork — not just how it relates to the topic</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="t2-spec-link-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: The connection between Theme 2 and the speculative artwork is made explicit on a slide or in spoken delivery</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="t2-artwork">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Write artist + artwork analysis (Theme 2)</div><div class="check-subtext">Describe concept, content, digital media, materials, and formal elements — all in service of showing what this artwork shares with the speculative piece in idea, form, or approach</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="t2-artwork-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Artwork is shown with at least one image; its connection to the theme and speculative artwork is explained</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="t2-article">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Integrate article (Theme 2)</div><div class="check-subtext">Source from outside the artworld — science, technology, sociology, psychology, history, etc. Explain what it argues and why that matters for the speculative artwork specifically. Must be peer-reviewed if this is one of your 2 required peer-reviewed sources</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="t2-article-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Article is cited in the presentation and its argument is briefly summarized for the audience</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="t2-personal">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Write personal connections (Theme 2)</div><div class="check-subtext">How does this theme connect to the group's lived experiences, passions, opinions, and interests? Why does it matter to you as people — not just as students?</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="t2-personal-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Personal connection to Theme 2 is spoken in the presentation — not just read from slides</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
+        <div class="checklist-item" data-id="t2-topic"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Write topic sentence and section intro</div><div class="check-subtext">State the theme in one clear sentence; explain how it connects to the speculative artwork before diving into examples</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="t2-topic-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Slide or spoken intro establishes Theme 2's argument and its link to the speculative artwork</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="t2-spec-link"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Write speculative artwork connection (Theme 2)</div><div class="check-subtext">Explicitly state how this theme directly informs or shapes the speculative artwork</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="t2-spec-link-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: The connection between Theme 2 and the speculative artwork is made explicit</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="t2-artwork"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Write artist + artwork analysis (Theme 2)</div><div class="check-subtext">Describe concept, content, digital media, materials, and formal elements — in service of showing what this artwork shares with the speculative piece</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="t2-artwork-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Artwork is shown with at least one image; its connection to the theme and speculative artwork is explained</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="t2-article"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Integrate article (Theme 2)</div><div class="check-subtext">Source from outside the artworld. Explain what it argues and why that matters for the speculative artwork specifically</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="t2-article-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Article is cited and its argument is briefly summarized for the audience</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="t2-personal"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Write personal connections (Theme 2)</div><div class="check-subtext">How does this theme connect to the group's lived experiences, passions, opinions, and interests?</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="t2-personal-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Personal connection to Theme 2 is spoken in the presentation — not just read from slides</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
 
         <div class="checklist-group-label">Theme 3</div>
-        <div class="checklist-item" data-id="t3-topic">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Write topic sentence and section intro</div><div class="check-subtext">State the theme in one clear sentence; explain how it connects to the speculative artwork before diving into examples</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="t3-topic-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Slide or spoken intro establishes Theme 3's argument and its link to the speculative artwork</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="t3-spec-link">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Write speculative artwork connection (Theme 3)</div><div class="check-subtext">Explicitly state how this theme directly informs or shapes the speculative artwork — not just how it relates to the topic</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="t3-spec-link-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: The connection between Theme 3 and the speculative artwork is made explicit on a slide or in spoken delivery</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="t3-artwork">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Write artist + artwork analysis (Theme 3)</div><div class="check-subtext">Describe concept, content, digital media, materials, and formal elements — all in service of showing what this artwork shares with the speculative piece in idea, form, or approach</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="t3-artwork-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Artwork is shown with at least one image; its connection to the theme and speculative artwork is explained</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="t3-article">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Integrate article (Theme 3)</div><div class="check-subtext">Source from outside the artworld — science, technology, sociology, psychology, history, etc. Explain what it argues and why that matters for the speculative artwork specifically. Must be peer-reviewed if this is one of your 2 required peer-reviewed sources</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="t3-article-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Article is cited in the presentation and its argument is briefly summarized for the audience</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="t3-personal">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Write personal connections (Theme 3)</div><div class="check-subtext">How does this theme connect to the group's lived experiences, passions, opinions, and interests? Why does it matter to you as people — not just as students?</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="t3-personal-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Personal connection to Theme 3 is spoken in the presentation — not just read from slides</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
+        <div class="checklist-item" data-id="t3-topic"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Write topic sentence and section intro</div><div class="check-subtext">State the theme in one clear sentence; explain how it connects to the speculative artwork before diving into examples</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="t3-topic-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Slide or spoken intro establishes Theme 3's argument and its link to the speculative artwork</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="t3-spec-link"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Write speculative artwork connection (Theme 3)</div><div class="check-subtext">Explicitly state how this theme directly informs or shapes the speculative artwork</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="t3-spec-link-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: The connection between Theme 3 and the speculative artwork is made explicit</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="t3-artwork"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Write artist + artwork analysis (Theme 3)</div><div class="check-subtext">Describe concept, content, digital media, materials, and formal elements — in service of showing what this artwork shares with the speculative piece</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="t3-artwork-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Artwork is shown with at least one image; its connection to the theme and speculative artwork is explained</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="t3-article"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Integrate article (Theme 3)</div><div class="check-subtext">Source from outside the artworld. Explain what it argues and why that matters for the speculative artwork specifically</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="t3-article-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Article is cited and its argument is briefly summarized for the audience</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="t3-personal"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Write personal connections (Theme 3)</div><div class="check-subtext">How does this theme connect to the group's lived experiences, passions, opinions, and interests?</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="t3-personal-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Personal connection to Theme 3 is spoken in the presentation — not just read from slides</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
 
         <div class="checklist-group-label">Speculative Artwork</div>
-        <div class="checklist-item" data-id="spec-describe">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Write speculative artwork description</div><div class="check-subtext">What is it? How does it work? What does a viewer or participant experience? Be specific about the concept, the digital media and technology used, and the form</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="spec-describe-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: The artwork is described clearly — what it is, how it works, what the audience sees and does</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="spec-tech">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Describe the technology in detail</div><div class="check-subtext">Name and explain each technological component for a non-specialist; no jargon left undefined; explain how the technology enables the concept</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="spec-tech-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Technology is explained in plain language on at least one slide; no unexplained jargon</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="spec-connect">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Connect speculative artwork to thesis and all three themes</div><div class="check-subtext">Show explicitly how the artwork holds all three themes simultaneously — not three separate ideas but one unified argument</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="spec-connect-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: A synthesis moment in the presentation shows how all three themes feed into the speculative artwork</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="spec-sketches">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Complete and include all sketches (min. 3 per member)</div><div class="check-subtext">Label each sketch with the member's name and what it shows; include different views — concept, interaction, detail, or spatial layout</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="spec-sketches-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Sketches are shown in the presentation and each member's contribution is identified</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
+        <div class="checklist-item" data-id="spec-describe"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Write speculative artwork description</div><div class="check-subtext">What is it? How does it work? What does a viewer or participant experience? Be specific about concept, digital media, technology used, and form</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="spec-describe-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: The artwork is described clearly — what it is, how it works, what the audience sees and does</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="spec-tech"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Describe the technology in detail</div><div class="check-subtext">Name and explain each technological component for a non-specialist; no jargon left undefined</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="spec-tech-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Technology is explained in plain language on at least one slide; no unexplained jargon</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="spec-connect"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Connect speculative artwork to thesis and all three themes</div><div class="check-subtext">Show explicitly how the artwork holds all three themes simultaneously — one unified argument</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="spec-connect-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: A synthesis moment shows how all three themes feed into the speculative artwork</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="spec-sketches"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Complete and include all sketches (min. 3 per member)</div><div class="check-subtext">Label each sketch with the member's name and what it shows; include different views — concept, interaction, detail, or spatial layout</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="spec-sketches-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Sketches are shown and each member's contribution is identified</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
 
         <div class="checklist-group-label">Synthesis and Conclusion</div>
-        <div class="checklist-item" data-id="synthesis">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Write the synthesis paragraph</div><div class="check-subtext">Show how all three themes converge in the speculative artwork; the work is not three ideas but one unified argument — the viewer's experience enacts what the paper argues</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="synthesis-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Synthesis is clearly communicated — the audience understands how the three themes converge in the artwork</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="conclusion">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Write the conclusion</div><div class="check-subtext">~5 sentences: synthesize the main argument, restate the thesis in light of the body, call to action (who should act and how?), future outlook for this kind of practice</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="conclusion-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Conclusion is delivered in the presentation and includes a call to action and a future outlook</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
+        <div class="checklist-item" data-id="synthesis"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Write the synthesis paragraph</div><div class="check-subtext">Show how all three themes converge in the speculative artwork — one unified argument enacted by the viewer's experience</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="synthesis-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Synthesis is clearly communicated — the audience understands how the three themes converge</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="conclusion"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Write the conclusion</div><div class="check-subtext">~5 sentences: synthesize the main argument, restate the thesis, call to action, future outlook</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="conclusion-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Conclusion is delivered and includes a call to action and a future outlook</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
 
         <div class="checklist-group-label">Research &amp; References</div>
-        <div class="checklist-item" data-id="sources-confirm">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Confirm all 3 sources are secured and read</div><div class="check-subtext">One source per theme — all three from outside the artworld; at least 2 must be peer-reviewed; all must connect to the speculative artwork</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="sources-confirm-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: All sources referenced in the presentation are correctly attributed on a references slide</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="citations-format">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Format all citations (ASA or Chicago)</div><div class="check-subtext">In-text citations and full reference list; consistent format throughout the paper</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="citations-format-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: A references slide is included in the presentation with all sources consistently listed</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="images-gather">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Source and prepare all images</div><div class="check-subtext">Image of each artwork discussed; image(s) of the speculative artwork; min. 3 sketches per group member — no AI-generated images, stock photos, or unaltered screenshots</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="images-gather-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: All images in the presentation are credited; no AI-generated or stock images are used</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
+        <div class="checklist-item" data-id="sources-confirm"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Confirm all 3 sources are secured and read</div><div class="check-subtext">One source per theme — all three from outside the artworld; at least 2 must be peer-reviewed</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="sources-confirm-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: All sources referenced are correctly attributed on a references slide</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="citations-format"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Format all citations (ASA or Chicago)</div><div class="check-subtext">In-text citations and full reference list; consistent format throughout</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="citations-format-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: A references slide is included with all sources consistently listed</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="images-gather"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Source and prepare all images</div><div class="check-subtext">Image of each artwork discussed; image(s) of the speculative artwork; min. 3 sketches per member — no AI-generated images, stock photos, or unaltered screenshots</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="images-gather-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: All images are credited; no AI-generated or stock images are used</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
 
         <div class="checklist-group-label">Final Polish</div>
-        <div class="checklist-item" data-id="proofread">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Proofread and edit the full draft</div><div class="check-subtext">Grammar, clarity, flow, and consistent voice across all sections — read the full paper aloud as a team before submitting</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="proofread-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Presentation slides are proofread; no typos, consistent fonts and capitalization throughout</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="transitions">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Add transitions between sections</div><div class="check-subtext">Each section should set up the next; the paper should read as a coherent whole, not a collection of separate pieces</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="transitions-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Transitions between presentation sections are smooth — brief spoken bridges between themes</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="final-assemble">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Assemble and format the final draft document</div><div class="check-subtext">Combine all sections; add title page, page numbers, consistent headings, and reference list at the end</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="final-assemble-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Final presentation deck is assembled, slides are numbered, and the title slide is complete</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
-        <div class="checklist-item" data-id="pres-rehearse">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label">Rehearse the full presentation as a group</div><div class="check-subtext">Run through the complete presentation at least once; confirm timing, transitions, and speaking roles for every member</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div>
-        </div>
-        <div class="checklist-item" data-id="pres-rehearse-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);">
-          <div class="check-box" onclick="toggleCheck(this)"></div>
-          <div><div class="check-label" style="color:var(--blue);">📽 Present: Every group member knows their speaking part and the presentation fits within the time limit</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div>
-          <div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div>
-          <div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div>
-          <div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div>
-          <div class="check-pres"></div>
-        </div>
+        <div class="checklist-item" data-id="proofread"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Proofread and edit the full draft</div><div class="check-subtext">Grammar, clarity, flow, and consistent voice across all sections — read the full paper aloud as a team before submitting</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="proofread-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Slides are proofread; no typos, consistent fonts and capitalization throughout</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="transitions"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Add transitions between sections</div><div class="check-subtext">Each section should set up the next; the paper should read as a coherent whole</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="transitions-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Transitions between sections are smooth — brief spoken bridges between themes</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="final-assemble"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Assemble and format the final draft document</div><div class="check-subtext">Combine all sections; add title page, page numbers, consistent headings, and reference list at the end</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="final-assemble-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Final deck is assembled, slides are numbered, and the title slide is complete</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
+        <div class="checklist-item" data-id="pres-rehearse"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label">Rehearse the full presentation as a group</div><div class="check-subtext">Run through the complete presentation at least once; confirm timing, transitions, and speaking roles for every member</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"><div class="pres-box" onclick="togglePres(this)" title="In presentation?"></div><span class="pres-label">Presentation</span></div></div>
+        <div class="checklist-item" data-id="pres-rehearse-pres" style="background:var(--blue-bg);border-left:3px solid var(--blue);"><div class="check-box" onclick="toggleCheck(this)"></div><div><div class="check-label" style="color:var(--blue);">📽 Present: Every group member knows their speaking part and the presentation fits within the time limit</div><div class="check-subtext" style="color:var(--ink-3);">Confirm this is included and ready for the presentation</div></div><div class="check-assignee"><select data-field="assignee" onchange="saveChecklist();colorStatus(this)"><option value="">— Assign —</option></select></div><div class="check-due"><input type="date" data-field="due" onchange="saveChecklist()"></div><div class="check-status"><select data-field="status" onchange="saveChecklist();colorStatus(this)"><option value="not-started">Not started</option><option value="in-progress">In progress</option><option value="done">Done</option><option value="blocked">Blocked</option></select></div><div class="check-pres"></div></div>
 
       </div><!-- /checklist -->
     </div>
@@ -1726,11 +1304,11 @@ function checkFbConfigured() {
 }
 
 function setSyncStatus(state, msg) {
-  var dot  = document.getElementById('sync-dot');
+  var dot   = document.getElementById('sync-dot');
   var msgEl = document.getElementById('sync-msg');
   var badge = document.getElementById('sync-badge');
   if (!dot) return;
-  dot.className  = 'sync-dot ' + (state || '');
+  dot.className = 'sync-dot ' + (state || '');
   msgEl.textContent = msg || '';
   if (badge) badge.textContent = state === 'live' ? 'Live' : state === 'saving' ? 'Saving…' : state === 'error' ? 'Offline' : 'Sync';
 }
@@ -1808,7 +1386,7 @@ function applyState(d, opts) {
       }
     } else {
       var field = document.getElementById(k);
-      if (field && !opts.skipFocused || field !== document.activeElement) {
+      if (field && (!opts.skipFocused || field !== document.activeElement)) {
         field.value = v;
         autoGrow(field);
       }
@@ -1854,9 +1432,7 @@ function loadRaw() {
   try { var r = localStorage.getItem(STORE); return r ? JSON.parse(r) : {}; } catch(e) { return {}; }
 }
 
-function load() {
-  applyState(loadRaw());
-}
+function load() { applyState(loadRaw()); }
 
 function loadChecklist(data) {
   if (!data) return;
@@ -1895,10 +1471,7 @@ function toggleCheck(box) {
   save();
 }
 
-function togglePres(box) {
-  box.classList.toggle('checked');
-  save();
-}
+function togglePres(box) { box.classList.toggle('checked'); save(); }
 
 function colorStatus(sel) {
   if (sel.closest('.check-status')) sel.setAttribute('data-status', sel.value);
@@ -2023,9 +1596,7 @@ function buildScales() {
   });
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Print — KEY FIX: members-grid inputs are NO LONGER skipped
-// ─────────────────────────────────────────────────────────────────────────────
+// ── Print ──
 function prepareForPrint() {
   document.querySelectorAll('.low-score-improve').forEach(function(el){ el.style.display = 'block'; });
   document.querySelectorAll('textarea').forEach(function(ta) {
@@ -2035,8 +1606,7 @@ function prepareForPrint() {
     ta.parentNode.insertBefore(div, ta); ta.style.display = 'none';
   });
   document.querySelectorAll('input[type="text"]').forEach(function(inp) {
-    if (inp.closest('.checklist-item')) return; // checklist inputs still skipped (handled by select proxy below)
-    // members-grid inputs now get proxies too — THIS IS THE FIX
+    if (inp.closest('.checklist-item')) return;
     var div = document.createElement('div'); div.className = 'print-text-proxy';
     div.textContent = inp.value || '';
     inp.parentNode.insertBefore(div, inp); inp.style.display = 'none';
@@ -2118,34 +1688,36 @@ if (!raw.members || !raw.members.length) {
 document.querySelectorAll('textarea').forEach(function(ta){ autoGrow(ta); });
 updateProgress();
 
-setTimeout(function() {
-  fbConfigured = checkFbConfigured();
+// ─────────────────────────────────────────────────────────────────────────────
+// *** FIX: replaced hard setTimeout(300) with a readiness poll.
+// The page renders immediately; Firebase connects as soon as it's ready.
+// ─────────────────────────────────────────────────────────────────────────────
+function waitForFb(callback, tries) {
+  tries = tries || 0;
+  if (checkFbConfigured()) { callback(); return; }
+  if (tries > 40) return; // give up after ~4s
+  setTimeout(function() { waitForFb(callback, tries + 1); }, 100);
+}
 
-  if (fbConfigured) {
-    document.getElementById('sync-bar').style.display    = 'flex';
-    document.getElementById('setup-warning').style.display = 'none';
+waitForFb(function() {
+  fbConfigured = true;
+  document.getElementById('sync-bar').style.display = 'flex';
+  setSyncStatus('', 'Connecting…');
 
-    setSyncStatus('', 'Connecting…');
-
-    window._fbListen(function(remoteData) {
-      if (!remoteData || remoteData._cleared) return;
-
-      isSyncing = true;
-      applyState(remoteData, { skipFocused: true });
-      updateProgress();
-      isSyncing = false;
-
-      setSyncStatus('live', 'Live — synced with your group');
-    });
-
-  }
-}, 300);
+  window._fbListen(function(remoteData) {
+    if (!remoteData || remoteData._cleared) return;
+    isSyncing = true;
+    applyState(remoteData, { skipFocused: true });
+    updateProgress();
+    isSyncing = false;
+    setSyncStatus('live', 'Live — synced with your group');
+  });
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Ownership & filter system
 // ─────────────────────────────────────────────────────────────────────────────
 var OWNED_CARD_IDS = ['card-thesis', 'card-body-ideas', 'card-artwork', 'card-research', 'card-speculative', 'card-ratings', 'card-overall'];
-var MEMBER_COLORS  = ['#C4622D', '#2559A7', '#2D7A52', '#7C3AED', '#92600A'];
 var activeMemberIdx = -1;
 var filterOn = false;
 
@@ -2158,7 +1730,7 @@ function renderWhoPills() {
     return;
   }
   container.innerHTML = '';
-  namedMembers.forEach(function(m, i) {
+  namedMembers.forEach(function(m) {
     var mi = members.indexOf(m);
     var pill = document.createElement('button');
     pill.className = 'who-pill' + (mi === activeMemberIdx ? ' active' : '');
@@ -2196,11 +1768,7 @@ function updateOwnerDropdowns() {
 function setCardOwner(cid, miStr) {
   var card = document.getElementById(cid);
   if (!card) return;
-  if (miStr === '' || miStr === undefined) {
-    card.setAttribute('data-owner', '');
-  } else {
-    card.setAttribute('data-owner', miStr);
-  }
+  card.setAttribute('data-owner', (miStr === '' || miStr === undefined) ? '' : miStr);
   refreshOwnerTag(cid);
   applyFilter();
   save();
@@ -2245,10 +1813,7 @@ function applyFilter() {
   }
 }
 
-function toggleFilter() {
-  filterOn = !filterOn;
-  applyFilter();
-}
+function toggleFilter() { filterOn = !filterOn; applyFilter(); }
 
 var _origCollectState = collectState;
 collectState = function() {
@@ -2275,10 +1840,7 @@ applyState = function(d, opts) {
       if (sel)  { sel.value = val; refreshOwnerTag(cid); }
     });
   }
-  setTimeout(function() {
-    renderWhoPills();
-    updateOwnerDropdowns();
-  }, 80);
+  setTimeout(function() { renderWhoPills(); updateOwnerDropdowns(); }, 80);
 };
 
 var _origRenderMembers = renderMembers;
@@ -2288,11 +1850,7 @@ renderMembers = function() {
   updateOwnerDropdowns();
 };
 
-setTimeout(function() {
-  renderWhoPills();
-  updateOwnerDropdowns();
-}, 400);
-
+setTimeout(function() { renderWhoPills(); updateOwnerDropdowns(); }, 400);
 </script>
 </body>
 </html>

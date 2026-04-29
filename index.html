@@ -6,12 +6,10 @@
 <title>Digital Media Arts — Group Self-Evaluations</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap"></noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap">
 
 <!-- Firebase SDK — reads live completion data for each group -->
-<script type="module" defer>
+<script type="module">
   import { initializeApp }   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getFirestore, collection, onSnapshot }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -30,23 +28,19 @@
   const app = initializeApp(firebaseConfig);
   const db  = getFirestore(app);
 
-  // Listen to the whole groups collection so all cards update live
   onSnapshot(collection(db, "groups"), (snap) => {
     snap.forEach((doc) => {
-      const groupId = doc.id;   // e.g. "group-1"
+      const groupId = doc.id;
       const data    = doc.data();
 
-      // Count checklist items that are checked
       const cl = data.checklist || {};
       const total   = Object.keys(cl).length;
       const checked = Object.values(cl).filter(v => v && v.checked).length;
       const pct     = total > 0 ? Math.round(checked / total * 100) : 0;
 
-      // Pull group name and paper title if entered
       const groupName  = data['group-name']  || '';
       const paperTitle = data['paper-title'] || '';
 
-      // Update the card
       const card = document.getElementById('card-' + groupId);
       if (!card) return;
 
@@ -62,7 +56,6 @@
       if (ptitle) ptitle.textContent = paperTitle || 'No title yet';
       if (dot)    dot.classList.add('on');
 
-      // Fade dot after a moment
       setTimeout(() => { if (dot) dot.classList.remove('on'); }, 2000);
     });
   }, (err) => {
@@ -100,7 +93,6 @@ body {
   overflow-x: hidden;
 }
 
-/* grain */
 body::before {
   content: '';
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
@@ -115,7 +107,6 @@ body::before {
   overflow: hidden;
 }
 
-/* large decorative text */
 .site-header::after {
   content: 'DMA';
   position: absolute; right: -1rem; bottom: -1.5rem;
@@ -126,7 +117,6 @@ body::before {
   pointer-events: none; letter-spacing: -.04em;
 }
 
-/* warm radial glow */
 .site-header::before {
   content: '';
   position: absolute; inset: 0; pointer-events: none;
@@ -154,7 +144,6 @@ body::before {
   font-size: .9rem; color: #A09D97; max-width: 480px; line-height: 1.65;
 }
 
-/* horizontal rule accent */
 .header-rule {
   width: 40px; height: 2px; background: var(--accent);
   margin: 1.25rem 0; border-radius: 1px;
@@ -167,7 +156,6 @@ body::before {
   position: relative; z-index: 1;
 }
 
-/* section label */
 .section-label {
   font-size: .68rem; font-weight: 600; letter-spacing: .18em;
   text-transform: uppercase; color: var(--ink-4);
@@ -218,7 +206,6 @@ body::before {
 .group-card:nth-child(5){animation-delay:.20s}
 .group-card:nth-child(6){animation-delay:.24s}
 
-/* colour strip at top */
 .card-strip {
   height: 4px;
   background: var(--rule);
@@ -282,42 +269,42 @@ body::before {
 
   <div class="group-grid">
 
-        <a class="group-card" href="group-1.html" id="card-group-1">
+    <a class="group-card" href="group-1.html" id="card-group-1">
       <div class="card-strip"></div>
       <div class="card-body-inner">
         <div class="group-name">Group 1</div>
       </div>
     </a>
 
-        <a class="group-card" href="group-2.html" id="card-group-2">
+    <a class="group-card" href="group-2.html" id="card-group-2">
       <div class="card-strip"></div>
       <div class="card-body-inner">
         <div class="group-name">Group 2</div>
       </div>
     </a>
 
-        <a class="group-card" href="group-3.html" id="card-group-3">
+    <a class="group-card" href="group-3.html" id="card-group-3">
       <div class="card-strip"></div>
       <div class="card-body-inner">
         <div class="group-name">Group 3</div>
       </div>
     </a>
 
-        <a class="group-card" href="group-4.html" id="card-group-4">
+    <a class="group-card" href="group-4.html" id="card-group-4">
       <div class="card-strip"></div>
       <div class="card-body-inner">
         <div class="group-name">Group 4</div>
       </div>
     </a>
 
-        <a class="group-card" href="group-5.html" id="card-group-5">
+    <a class="group-card" href="group-5.html" id="card-group-5">
       <div class="card-strip"></div>
       <div class="card-body-inner">
         <div class="group-name">Group 5</div>
       </div>
     </a>
 
-        <a class="group-card" href="group-6.html" id="card-group-6">
+    <a class="group-card" href="group-6.html" id="card-group-6">
       <div class="card-strip"></div>
       <div class="card-body-inner">
         <div class="group-name">Group 6</div>
