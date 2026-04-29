@@ -384,7 +384,7 @@ select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns
 
   .two-col, .three-col { grid-template-columns:1fr; gap:5pt; }
 
-  .checklist-item { grid-template-columns:auto 1fr auto auto auto; gap:.4rem; padding:4pt 2pt; border-bottom:1px solid #E0DDD7; break-inside:avoid; page-break-inside:avoid; }
+  .checklist-item { grid-template-columns:auto 1fr auto auto auto !important; gap:.4rem; padding:4pt 2pt; border-bottom:1px solid #E0DDD7; break-inside:avoid; page-break-inside:avoid; }
   .check-box { width:14pt; height:14pt; border:1.5pt solid #CCC; border-radius:3pt; background:#EAE6DE !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .check-box.checked { border-color:#2D7A52 !important; background:#2D7A52 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .check-label { font-size:8pt; }
@@ -398,6 +398,9 @@ select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns
   .scale-btn.active { background:#FAEEE6 !important; border-color:#C4622D !important; color:#C4622D !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .rating-row { break-inside:avoid; }
   .ratings-table { break-inside:auto; }
+
+  /* Fix: member number circles also need to stay visible */
+  .member-row .member-num { display:flex !important; }
 }
 
 /* ══ Diagram styles ══ */
@@ -619,16 +622,7 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
   import { getFirestore, doc, setDoc, onSnapshot, serverTimestamp }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-  // ─────────────────────────────────────────────────────────────────────────
-  // ✏️  INSTRUCTOR SETUP — edit these two things only:
-  //
-  //   1. Replace the firebaseConfig object below with your own project's
-  //      config from the Firebase console (Project settings → Your apps → SDK setup).
-  //
-  //   2. Change GROUP_ID to a unique string for each group file:
-  //      e.g. "group-1", "group-2", … "group-6"
-  // ─────────────────────────────────────────────────────────────────────────
-  const GROUP_ID = "group-4"; // ← change this per file
+  const GROUP_ID = "group-4";
 
   const firebaseConfig = {
     apiKey:            "AIzaSyBtGtZ9vkDCraCUdwKgDovmxqqysVrX05w",
@@ -640,13 +634,11 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
     appId:             "1:902474023892:web:1258a3d078c7c2ee734c41",
     measurementId:     "G-VQJDG5X9T2"
   };
-  // ─────────────────────────────────────────────────────────────────────────
 
   const app = initializeApp(firebaseConfig);
   const db  = getFirestore(app);
   const docRef = doc(db, "groups", GROUP_ID);
 
-  // Expose to global scope so the rest of the (non-module) script can call them
   window._fbSave = async function(data) {
     try {
       await setDoc(docRef, { ...data, _lastSaved: serverTimestamp() }, { merge: true });
@@ -697,10 +689,8 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
     </div>
   </div>
 
-  <!-- Setup warning (hidden — Firebase is configured) -->
   <div class="setup-warning" id="setup-warning" style="display:none"></div>
 
-  <!-- Live sync status -->
   <div class="sync-bar" id="sync-bar" style="display:none">
     <div class="sync-dot" id="sync-dot"></div>
     <span class="sync-msg" id="sync-msg">Connecting…</span>
@@ -755,7 +745,6 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
     <div class="diagram-title">Paper structure at a glance</div>
     <div class="diag">
 
-      <!-- Top row: thesis feeds into three theme pills -->
       <div class="d-card d-gray" style="margin-bottom:0;">
         <div class="d-card-title">Introduction + thesis</div>
         <div class="d-card-sub">State what the paper argues and why it matters. Introduce the three themes and the speculative artwork. The thesis should be specific enough to give the paper direction.</div>
@@ -820,7 +809,6 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
 
       </div>
 
-      <!-- Merge lines -->
       <div style="height:22px;display:flex;position:relative;margin-top:4px;">
         <div style="position:absolute;left:17%;width:1px;height:22px;background:#534AB7;top:0;"></div>
         <div style="position:absolute;left:50%;width:1px;height:22px;background:#534AB7;top:0;"></div>
@@ -871,7 +859,6 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
     <div class="card-head">
       <h2 class="card-title">Introduction &amp; thesis</h2>
       <span class="part-tag">Part 2</span>
-    
       <div class="owner-select-wrap"><span class="owner-tag" id="card-thesis-owner-tag">+ Assign</span><select id="card-thesis-owner-sel" onchange="setCardOwner('card-thesis', this.value)"><option value="">+ Assign</option></select></div>
     </div>
     <div class="card-body">
@@ -901,7 +888,6 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
     <div class="card-head">
       <h2 class="card-title">Body — ideas and structure</h2>
       <span class="part-tag">Part 3</span>
-    
       <div class="owner-select-wrap"><span class="owner-tag" id="card-body-ideas-owner-tag">+ Assign</span><select id="card-body-ideas-owner-sel" onchange="setCardOwner('card-body-ideas', this.value)"><option value="">+ Assign</option></select></div>
     </div>
     <div class="card-body">
@@ -950,7 +936,6 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
     <div class="card-head">
       <h2 class="card-title">Artwork analysis</h2>
       <span class="part-tag">Part 3 cont.</span>
-    
       <div class="owner-select-wrap"><span class="owner-tag" id="card-artwork-owner-tag">+ Assign</span><select id="card-artwork-owner-sel" onchange="setCardOwner('card-artwork', this.value)"><option value="">+ Assign</option></select></div>
     </div>
     <div class="card-body">
@@ -1009,7 +994,6 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
     <div class="card-head">
       <h2 class="card-title">Research and sources</h2>
       <span class="part-tag">Part 3 cont.</span>
-    
       <div class="owner-select-wrap"><span class="owner-tag" id="card-research-owner-tag">+ Assign</span><select id="card-research-owner-sel" onchange="setCardOwner('card-research', this.value)"><option value="">+ Assign</option></select></div>
     </div>
     <div class="card-body">
@@ -1134,7 +1118,6 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
     <div class="card-head">
       <h2 class="card-title">Self-ratings</h2>
       <span class="part-tag">1 = needs significant work · 5 = strong</span>
-    
       <div class="owner-select-wrap"><span class="owner-tag" id="card-ratings-owner-tag">+ Assign</span><select id="card-ratings-owner-sel" onchange="setCardOwner('card-ratings', this.value)"><option value="">+ Assign</option></select></div>
     </div>
     <div class="card-body" style="padding:1rem 1.25rem">
@@ -1724,7 +1707,7 @@ body.filter-on .card[data-owner="none"] { opacity: .25; pointer-events: none; }
 // ─────────────────────────────────────────────────────────────────────────────
 // Data & config
 // ─────────────────────────────────────────────────────────────────────────────
-var STORE        = 'group-self-eval-woven-v2';  // localStorage fallback key
+var STORE        = 'group-self-eval-woven-v2-g4';
 var RADIO_GROUPS = ['thesis-clarity','themes-clarity','artwork-count','artwork-spec',
                     'sources-req','citations','spec-concept','themes-spec','sketches'];
 var RATING_IDS   = ['r-thesis','r-structure','r-artworks','r-research','r-spec','r-connection','r-overall'];
@@ -1733,16 +1716,12 @@ var SCALE_LOW_IDS = { 'sc-cohesion': 'imp-cohesion-wrap', 'sc-analysis': 'imp-an
 
 var memberCount   = 0;
 var members       = [];
-var fbConfigured  = false; // flips to true once real API key is detected
-var isSyncing     = false; // prevent remote→local feedback loops
+var fbConfigured  = false;
+var isSyncing     = false;
 var saveTimer;
 var fbSaveTimer;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Firebase helpers
-// ─────────────────────────────────────────────────────────────────────────────
 function checkFbConfigured() {
-  // Firebase module sets window._fbReady; also check the API key wasn't left as placeholder
   return !!(window._fbReady && window._fbSave && window._fbListen);
 }
 
@@ -1756,9 +1735,6 @@ function setSyncStatus(state, msg) {
   if (badge) badge.textContent = state === 'live' ? 'Live' : state === 'saving' ? 'Saving…' : state === 'error' ? 'Offline' : 'Sync';
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Collect the full form state as a plain object
-// ─────────────────────────────────────────────────────────────────────────────
 function collectState() {
   var d = {};
   allTextFields().forEach(function(el){
@@ -1778,7 +1754,6 @@ function collectState() {
   });
   d.members = members;
 
-  // checklist
   var cl = {};
   document.querySelectorAll('.checklist-item').forEach(function(item) {
     var id = item.getAttribute('data-id');
@@ -1795,14 +1770,10 @@ function collectState() {
   return d;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Apply a state object to the DOM (used for both load & remote updates)
-// ─────────────────────────────────────────────────────────────────────────────
 function applyState(d, opts) {
   opts = opts || {};
   if (!d) return;
 
-  // Members
   if (d.members && Array.isArray(d.members)) {
     members = d.members;
     memberCount = members.reduce(function(max, m){ return Math.max(max, m.id); }, 0);
@@ -1810,7 +1781,6 @@ function applyState(d, opts) {
     updateAllAssigneeDropdowns();
   }
 
-  // Fields, radios, stars, scales
   Object.keys(d).forEach(function(k) {
     var v = d[k];
     if (k === 'members' || k === 'checklist' || k === '_lastSaved') return;
@@ -1845,7 +1815,6 @@ function applyState(d, opts) {
     }
   });
 
-  // Checklist
   if (d.checklist) {
     setTimeout(function(){
       updateAllAssigneeDropdowns();
@@ -1854,17 +1823,12 @@ function applyState(d, opts) {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Save — writes localStorage always; debounces Firebase write
-// ─────────────────────────────────────────────────────────────────────────────
 function save() {
-  if (isSyncing) return; // don't echo back remote changes
+  if (isSyncing) return;
   var d = collectState();
 
-  // Always write localStorage as fallback
   try { localStorage.setItem(STORE, JSON.stringify(d)); } catch(e) {}
 
-  // Firebase — debounced so rapid typing doesn't spam writes
   if (fbConfigured) {
     setSyncStatus('saving', 'Saving…');
     clearTimeout(fbSaveTimer);
@@ -1886,9 +1850,6 @@ function debounceSave() {
   saveTimer = setTimeout(save, 500);
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// localStorage fallback load
-// ─────────────────────────────────────────────────────────────────────────────
 function loadRaw() {
   try { var r = localStorage.getItem(STORE); return r ? JSON.parse(r) : {}; } catch(e) { return {}; }
 }
@@ -1897,9 +1858,6 @@ function load() {
   applyState(loadRaw());
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Checklist helpers
-// ─────────────────────────────────────────────────────────────────────────────
 function loadChecklist(data) {
   if (!data) return;
   document.querySelectorAll('.checklist-item').forEach(function(item) {
@@ -1923,9 +1881,6 @@ function loadChecklist(data) {
 
 function saveChecklist() { save(); }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// UI helpers
-// ─────────────────────────────────────────────────────────────────────────────
 function flashSaved() {
   var label = document.getElementById('save-label');
   var dot   = document.getElementById('save-dot');
@@ -1951,9 +1906,6 @@ function colorStatus(sel) {
 
 function autoGrow(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Member management
-// ─────────────────────────────────────────────────────────────────────────────
 function addMember(name) {
   memberCount++;
   members.push({ id: memberCount, name: name || '' });
@@ -2003,9 +1955,6 @@ function updateAllAssigneeDropdowns() {
   });
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Progress
-// ─────────────────────────────────────────────────────────────────────────────
 function allTextFields() { return Array.from(document.querySelectorAll('input[type="text"], textarea')); }
 
 function totalCount() {
@@ -2031,9 +1980,6 @@ function updateProgress() {
   document.getElementById('progress-label').textContent = pct + '% complete';
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Stars & Scales
-// ─────────────────────────────────────────────────────────────────────────────
 function buildStars() {
   RATING_IDS.forEach(function(id) {
     var c = document.getElementById(id);
@@ -2078,7 +2024,7 @@ function buildScales() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Print
+// Print — KEY FIX: members-grid inputs are NO LONGER skipped
 // ─────────────────────────────────────────────────────────────────────────────
 function prepareForPrint() {
   document.querySelectorAll('.low-score-improve').forEach(function(el){ el.style.display = 'block'; });
@@ -2089,7 +2035,8 @@ function prepareForPrint() {
     ta.parentNode.insertBefore(div, ta); ta.style.display = 'none';
   });
   document.querySelectorAll('input[type="text"]').forEach(function(inp) {
-    if (inp.closest('.members-grid') || inp.closest('.checklist-item')) return;
+    if (inp.closest('.checklist-item')) return; // checklist inputs still skipped (handled by select proxy below)
+    // members-grid inputs now get proxies too — THIS IS THE FIX
     var div = document.createElement('div'); div.className = 'print-text-proxy';
     div.textContent = inp.value || '';
     inp.parentNode.insertBefore(div, inp); inp.style.display = 'none';
@@ -2116,9 +2063,6 @@ function exportPDF() {
   }, 150);
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Clear
-// ─────────────────────────────────────────────────────────────────────────────
 function clearForm() {
   if (!confirm('Clear all responses? This cannot be undone.')) return;
   try { localStorage.removeItem(STORE); } catch(e) {}
@@ -2151,9 +2095,6 @@ function clearForm() {
   updateProgress();
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Wire up inputs
-// ─────────────────────────────────────────────────────────────────────────────
 document.querySelectorAll('textarea').forEach(function(ta){
   ta.addEventListener('input', function(){ autoGrow(ta); });
 });
@@ -2165,13 +2106,9 @@ document.querySelectorAll('input[type="radio"]').forEach(function(el){
   el.addEventListener('change', save);
 });
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Init
-// ─────────────────────────────────────────────────────────────────────────────
 buildStars();
 buildScales();
 
-// Load from localStorage first for instant render
 var raw = loadRaw();
 if (!raw.members || !raw.members.length) {
   addMember(); addMember(); addMember(); addMember(); addMember();
@@ -2181,22 +2118,19 @@ if (!raw.members || !raw.members.length) {
 document.querySelectorAll('textarea').forEach(function(ta){ autoGrow(ta); });
 updateProgress();
 
-// Then check Firebase — wait a tick for the module script to finish
 setTimeout(function() {
   fbConfigured = checkFbConfigured();
 
   if (fbConfigured) {
-    // Show sync bar, hide setup warning
     document.getElementById('sync-bar').style.display    = 'flex';
     document.getElementById('setup-warning').style.display = 'none';
 
     setSyncStatus('', 'Connecting…');
 
-    // Subscribe to real-time updates
     window._fbListen(function(remoteData) {
       if (!remoteData || remoteData._cleared) return;
 
-      isSyncing = true;   // block re-save echo
+      isSyncing = true;
       applyState(remoteData, { skipFocused: true });
       updateProgress();
       isSyncing = false;
@@ -2204,9 +2138,6 @@ setTimeout(function() {
       setSyncStatus('live', 'Live — synced with your group');
     });
 
-  } else {
-    // Keep showing the setup warning (already visible by default)
-    // localStorage-only mode works fine without further action
   }
 }, 300);
 
@@ -2215,7 +2146,7 @@ setTimeout(function() {
 // ─────────────────────────────────────────────────────────────────────────────
 var OWNED_CARD_IDS = ['card-thesis', 'card-body-ideas', 'card-artwork', 'card-research', 'card-speculative', 'card-ratings', 'card-overall'];
 var MEMBER_COLORS  = ['#C4622D', '#2559A7', '#2D7A52', '#7C3AED', '#92600A'];
-var activeMemberIdx = -1; // index into members[] for "I am"
+var activeMemberIdx = -1;
 var filterOn = false;
 
 function renderWhoPills() {
@@ -2228,7 +2159,7 @@ function renderWhoPills() {
   }
   container.innerHTML = '';
   namedMembers.forEach(function(m, i) {
-    var mi = members.indexOf(m); // real index for colour
+    var mi = members.indexOf(m);
     var pill = document.createElement('button');
     pill.className = 'who-pill' + (mi === activeMemberIdx ? ' active' : '');
     pill.setAttribute('data-mi', mi);
@@ -2266,14 +2197,13 @@ function setCardOwner(cid, miStr) {
   var card = document.getElementById(cid);
   if (!card) return;
   if (miStr === '' || miStr === undefined) {
-    card.removeAttribute('data-owner');
     card.setAttribute('data-owner', '');
   } else {
     card.setAttribute('data-owner', miStr);
   }
   refreshOwnerTag(cid);
   applyFilter();
-  save(); // persist ownership with the rest of the form state
+  save();
 }
 
 function refreshOwnerTag(cid) {
@@ -2298,9 +2228,7 @@ function refreshOwnerTag(cid) {
 function applyFilter() {
   var btn = document.getElementById('filter-toggle');
   if (filterOn && activeMemberIdx >= 0) {
-    // Set CSS variable approach: add active class to body + override via data attr
     document.body.classList.add('filter-on');
-    // We use a dynamic style tag to set the correct active index
     var styleEl = document.getElementById('filter-style');
     if (!styleEl) {
       styleEl = document.createElement('style');
@@ -2322,7 +2250,6 @@ function toggleFilter() {
   applyFilter();
 }
 
-// Collect ownership into form state
 var _origCollectState = collectState;
 collectState = function() {
   var d = _origCollectState();
@@ -2335,7 +2262,6 @@ collectState = function() {
   return d;
 };
 
-// Apply ownership from loaded state
 var _origApplyState = applyState;
 applyState = function(d, opts) {
   _origApplyState(d, opts);
@@ -2349,14 +2275,12 @@ applyState = function(d, opts) {
       if (sel)  { sel.value = val; refreshOwnerTag(cid); }
     });
   }
-  // Rebuild who-pills and dropdowns whenever state is applied
   setTimeout(function() {
     renderWhoPills();
     updateOwnerDropdowns();
   }, 80);
 };
 
-// Hook into member changes so pills + dropdowns stay in sync
 var _origRenderMembers = renderMembers;
 renderMembers = function() {
   _origRenderMembers();
@@ -2364,7 +2288,6 @@ renderMembers = function() {
   updateOwnerDropdowns();
 };
 
-// Init ownership UI once DOM is ready
 setTimeout(function() {
   renderWhoPills();
   updateOwnerDropdowns();
